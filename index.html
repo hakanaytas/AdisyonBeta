@@ -1,0 +1,1898 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Restaurant Adisyon Programı</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --secondary-color: #FFC107;
+            --danger-color: #F44336;
+            --light-color: #FFFFFF;
+            --dark-color: #333333;
+            --gray-color: #F5F5F5;
+            --border-radius: 12px;
+            --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+        }
+
+        .container {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Giriş Ekranı */
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--gray-color);
+        }
+
+        .login-box {
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            width: 90%;
+            max-width: 800px;
+            padding: 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .login-form h2 {
+            margin-bottom: 20px;
+            color: var(--dark-color);
+        }
+
+        .login-form input {
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+        }
+
+        .login-form button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .login-form button:hover {
+            background-color: #45a049;
+        }
+
+        .info-box {
+            background-color: var(--gray-color);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .info-box h3 {
+            margin-bottom: 10px;
+            color: var(--dark-color);
+        }
+
+        .info-box p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* Ana Ekran */
+        .main-container {
+            display: none;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .header {
+            background-color: var(--light-color);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .user-info i {
+            font-size: 20px;
+        }
+
+        .header-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .header-btn {
+            padding: 8px 15px;
+            border-radius: var(--border-radius);
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: opacity 0.3s;
+        }
+
+        .header-btn:hover {
+            opacity: 0.9;
+        }
+
+        .accounting-btn {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .settings-btn {
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+        }
+
+        /* Masalar Grid */
+        .tables-container {
+            padding: 20px;
+            flex: 1;
+        }
+
+        .tables-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .table-card {
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .table-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .table-card.empty {
+            background-color: var(--light-color);
+        }
+
+        .table-card.occupied {
+            background-color: #E8F5E9;
+            border: 2px solid var(--primary-color);
+        }
+
+        .table-number {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .table-info {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .table-total {
+            font-weight: bold;
+            color: var(--dark-color);
+            margin-top: 10px;
+        }
+
+        /* Masa Detay Ekranı */
+        .table-detail-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--light-color);
+            z-index: 100;
+            padding: 20px;
+            flex-direction: column;
+        }
+
+        .table-detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .table-detail-title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .table-detail-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .table-detail-content {
+            display: flex;
+            flex: 1;
+            gap: 20px;
+        }
+
+        .products-list {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
+            align-content: start;
+            overflow-y: auto;
+            padding: 5px;
+        }
+
+        .product-card {
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .product-card:hover {
+            transform: scale(1.05);
+        }
+
+        .product-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .product-price {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .order-section {
+            width: 300px;
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid #eee;
+            padding-left: 20px;
+        }
+
+        .current-order {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .order-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quantity-btn {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            border: none;
+            background-color: var(--gray-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .quantity-input {
+            width: 30px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 2px;
+        }
+
+        .delete-btn {
+            background: none;
+            border: none;
+            color: #ff6b6b;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .order-total {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 15px 0;
+            text-align: right;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 12px;
+            border-radius: var(--border-radius);
+            border: none;
+            cursor: pointer;
+            font-weight: bold;
+            transition: opacity 0.3s;
+        }
+
+        .action-btn:hover {
+            opacity: 0.9;
+        }
+
+        .pay-btn {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .move-btn {
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+        }
+
+        .save-btn {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        /* Ödeme Ekranı */
+        .payment-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 200;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .payment-box {
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            width: 90%;
+            max-width: 400px;
+            padding: 25px;
+        }
+
+        .payment-title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .payment-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .payment-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            background-color: var(--gray-color);
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .payment-option:hover {
+            background-color: #e0e0e0;
+        }
+
+        .payment-option.selected {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .payment-option i {
+            font-size: 24px;
+        }
+
+        .payment-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .payment-cancel {
+            flex: 1;
+            background-color: #ddd;
+            border: none;
+            padding: 12px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .payment-confirm {
+            flex: 1;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Muhasebe Ekranı */
+        .accounting-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--light-color);
+            z-index: 150;
+            padding: 20px;
+            flex-direction: column;
+        }
+
+        .accounting-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .accounting-title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .accounting-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .accounting-content {
+            display: flex;
+            flex: 1;
+            gap: 30px;
+        }
+
+        .sales-summary {
+            flex: 1;
+        }
+
+        .summary-card {
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .summary-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #eee;
+        }
+
+        .summary-total {
+            font-weight: bold;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px solid #eee;
+        }
+
+        .sales-chart {
+            flex: 1;
+            background-color: var(--light-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chart-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--gray-color);
+            border-radius: var(--border-radius);
+            margin-top: 15px;
+        }
+
+        .chart-placeholder {
+            color: #999;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .report-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        .report-btn {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Ayarlar Ekranı */
+        .settings-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--light-color);
+            z-index: 150;
+            padding: 20px;
+            flex-direction: column;
+        }
+
+        .settings-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .settings-title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .settings-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #666;
+        }
+
+        .settings-tabs {
+            display: flex;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+
+        .settings-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+        }
+
+        .settings-tab.active {
+            border-bottom: 3px solid var(--primary-color);
+            font-weight: bold;
+        }
+
+        .settings-content {
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .settings-section {
+            margin-bottom: 30px;
+        }
+
+        .section-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .table-settings {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .add-table-btn {
+            background-color: var(--gray-color);
+            border: 2px dashed #ccc;
+            border-radius: var(--border-radius);
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .add-table-btn:hover {
+            background-color: #e0e0e0;
+        }
+
+        .add-table-btn i {
+            font-size: 24px;
+            color: #666;
+        }
+
+        .product-form {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .product-form input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: var(--border-radius);
+        }
+
+        .product-form button {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+        }
+
+        .product-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .product-item {
+            background-color: var(--gray-color);
+            border-radius: var(--border-radius);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-item-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .edit-btn {
+            background-color: var(--secondary-color);
+            color: var(--dark-color);
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        .remove-btn {
+            background-color: var(--danger-color);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+        }
+
+        /* Taşıma Modu */
+        .move-mode {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 300;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: white;
+        }
+
+        .move-instruction {
+            font-size: 24px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .available-tables {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            max-width: 600px;
+        }
+
+        .available-table {
+            background-color: var(--light-color);
+            color: var(--dark-color);
+            border-radius: var(--border-radius);
+            padding: 15px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .available-table:hover {
+            transform: scale(1.05);
+        }
+
+        .cancel-move {
+            margin-top: 30px;
+            background-color: var(--danger-color);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Responsive Tasarım */
+        @media (max-width: 768px) {
+            .login-box {
+                grid-template-columns: 1fr;
+            }
+
+            .tables-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+
+            .table-detail-content {
+                flex-direction: column;
+            }
+
+            .order-section {
+                width: 100%;
+                border-left: none;
+                border-top: 1px solid #eee;
+                padding-left: 0;
+                padding-top: 20px;
+            }
+
+            .accounting-content {
+                flex-direction: column;
+            }
+
+            .product-form {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .tables-grid {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: 10px;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .header {
+                flex-direction: column;
+                gap: 10px;
+                align-items: flex-start;
+            }
+
+            .header-buttons {
+                width: 100%;
+                justify-content: space-between;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Giriş Ekranı -->
+    <div class="login-container" id="loginContainer">
+        <div class="login-box">
+            <div class="login-form">
+                <h2>Adisyon Programı Giriş</h2>
+                <input type="text" id="username" placeholder="Kullanıcı Adı">
+                <input type="password" id="password" placeholder="Şifre">
+                <button id="loginBtn">Giriş Yap</button>
+            </div>
+            <div class="info-box">
+                <h3>Hakkında</h3>
+                <p>Hakan Aytaş - 2025</p>
+                <p>Diyarbakır/Bağlar</p>
+                <p>hffhakan@gmail.com</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ana Ekran -->
+    <div class="main-container" id="mainContainer">
+        <div class="header">
+            <div class="user-info">
+                <i class="fas fa-user"></i>
+                <span id="loggedInUser">Kullanıcı</span>
+            </div>
+            <div class="header-buttons">
+                <button class="header-btn accounting-btn" id="accountingBtn">
+                    <i class="fas fa-calculator"></i> Muhasebe
+                </button>
+                <button class="header-btn settings-btn" id="settingsBtn">
+                    <i class="fas fa-cog"></i> Ayarlar
+                </button>
+            </div>
+        </div>
+
+        <div class="tables-container">
+            <div class="tables-grid" id="tablesGrid">
+                <!-- Masalar buraya dinamik olarak eklenecek -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Masa Detay Ekranı -->
+    <div class="table-detail-container" id="tableDetailContainer">
+        <div class="table-detail-header">
+            <div class="table-detail-title">Masa <span id="detailTableNumber">1</span></div>
+            <button class="table-detail-close" id="tableDetailClose">&times;</button>
+        </div>
+        <div class="table-detail-content">
+            <div class="products-list" id="productsList">
+                <!-- Ürünler buraya dinamik olarak eklenecek -->
+            </div>
+            <div class="order-section">
+                <div class="current-order" id="currentOrder">
+                    <!-- Sipariş listesi buraya dinamik olarak eklenecek -->
+                </div>
+                <div class="order-total">
+                    Toplam: <span id="orderTotal">0.00</span> ₺
+                </div>
+                <div class="action-buttons">
+                    <button class="action-btn pay-btn" id="payBtn">Ödeme</button>
+                    <button class="action-btn move-btn" id="moveBtn">Taşı</button>
+                    <button class="action-btn save-btn" id="saveBtn">Kaydet</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ödeme Ekranı -->
+    <div class="payment-modal" id="paymentModal">
+        <div class="payment-box">
+            <div class="payment-title">Ödeme Yöntemi Seçin</div>
+            <div class="payment-options">
+                <div class="payment-option" data-type="cash">
+                    <i class="fas fa-money-bill-wave"></i>
+                    <span>Nakit Ödeme</span>
+                </div>
+                <div class="payment-option" data-type="card">
+                    <i class="fas fa-credit-card"></i>
+                    <span>Kredi Kartı</span>
+                </div>
+            </div>
+            <div class="payment-actions">
+                <button class="payment-cancel" id="paymentCancel">İptal</button>
+                <button class="payment-confirm" id="paymentConfirm">Onayla</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Muhasebe Ekranı -->
+    <div class="accounting-modal" id="accountingModal">
+        <div class="accounting-header">
+            <div class="accounting-title">Muhasebe</div>
+            <button class="accounting-close" id="accountingClose">&times;</button>
+        </div>
+        <div class="accounting-content">
+            <div class="sales-summary">
+                <div class="summary-card">
+                    <div class="summary-title">Ödeme Türleri</div>
+                    <div class="summary-item">
+                        <span>Nakit Ödeme:</span>
+                        <span id="cashTotal">0.00 ₺</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Kredi Kartı:</span>
+                        <span id="cardTotal">0.00 ₺</span>
+                    </div>
+                    <div class="summary-total">
+                        <span>Toplam Ciro:</span>
+                        <span id="totalRevenue">0.00 ₺</span>
+                    </div>
+                </div>
+                <div class="summary-card">
+                    <div class="summary-title">Kapanan Masalar</div>
+                    <div id="closedTablesList">
+                        <!-- Kapanan masalar buraya eklenecek -->
+                    </div>
+                </div>
+            </div>
+            <div class="sales-chart">
+                <div class="summary-title">En Çok Satan Ürünler</div>
+                <div class="chart-container">
+                    <div class="chart-placeholder">Grafik burada gösterilecek</div>
+                </div>
+            </div>
+        </div>
+        <div class="report-actions">
+            <button class="report-btn" id="generateReport">
+                <i class="fas fa-file-alt"></i> Z Raporu Oluştur
+            </button>
+        </div>
+    </div>
+
+    <!-- Ayarlar Ekranı -->
+    <div class="settings-modal" id="settingsModal">
+        <div class="settings-header">
+            <div class="settings-title">Ayarlar</div>
+            <button class="settings-close" id="settingsClose">&times;</button>
+        </div>
+        <div class="settings-tabs">
+            <div class="settings-tab active" data-tab="tables">Masalar</div>
+            <div class="settings-tab" data-tab="products">Ürünler</div>
+        </div>
+        <div class="settings-content">
+            <!-- Masalar Ayarları -->
+            <div class="settings-section" id="tablesSettings">
+                <div class="section-title">Masa Ayarları</div>
+                <div class="table-settings" id="tableSettingsGrid">
+                    <!-- Masalar buraya eklenecek -->
+                </div>
+                <div class="add-table-btn" id="addTableBtn">
+                    <i class="fas fa-plus"></i>
+                </div>
+            </div>
+
+            <!-- Ürün Ayarları -->
+            <div class="settings-section" id="productsSettings" style="display: none;">
+                <div class="section-title">Ürün Ekle/Düzenle</div>
+                <div class="product-form">
+                    <input type="text" id="productName" placeholder="Ürün Adı">
+                    <input type="number" id="productPrice" placeholder="Fiyat" step="0.01">
+                    <button id="addProductBtn">Ekle</button>
+                </div>
+                <div class="section-title">Mevcut Ürünler</div>
+                <div class="product-list" id="productList">
+                    <!-- Ürünler buraya eklenecek -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Taşıma Modu -->
+    <div class="move-mode" id="moveMode">
+        <div class="move-instruction">Taşımak istediğiniz masayı seçin</div>
+        <div class="available-tables" id="availableTables">
+            <!-- Boş masalar buraya eklenecek -->
+        </div>
+        <button class="cancel-move" id="cancelMove">İptal</button>
+    </div>
+
+    <script>
+        // Uygulama verileri
+        const appData = {
+            currentUser: null,
+            tables: Array(20).fill().map((_, i) => ({
+                number: i + 1,
+                status: 'empty',
+                openedAt: null,
+                orders: [],
+                total: 0
+            })),
+            products: [
+                { id: 1, name: "Çay", price: 5.00 },
+                { id: 2, name: "Kahve", price: 10.00 },
+                { id: 3, name: "Su", price: 2.00 },
+                { id: 4, name: "Kola", price: 8.00 },
+                { id: 5, name: "Ayran", price: 6.00 },
+                { id: 6, name: "Limonata", price: 9.00 },
+                { id: 7, name: "Menemen", price: 25.00 },
+                { id: 8, name: "Omlet", price: 20.00 },
+                { id: 9, name: "Tost", price: 15.00 },
+                { id: 10, name: "Pizza", price: 40.00 },
+                { id: 11, name: "Hamburger", price: 35.00 },
+                { id: 12, name: "Salata", price: 20.00 }
+            ],
+            accounting: {
+                cashTotal: 0,
+                cardTotal: 0,
+                closedTables: []
+            },
+            currentTable: null,
+            selectedPayment: null,
+            currentSettingsTab: 'tables'
+        };
+
+        // DOM Elementleri
+        const loginContainer = document.getElementById('loginContainer');
+        const mainContainer = document.getElementById('mainContainer');
+        const loggedInUser = document.getElementById('loggedInUser');
+        const tablesGrid = document.getElementById('tablesGrid');
+        const tableDetailContainer = document.getElementById('tableDetailContainer');
+        const detailTableNumber = document.getElementById('detailTableNumber');
+        const productsList = document.getElementById('productsList');
+        const currentOrder = document.getElementById('currentOrder');
+        const orderTotal = document.getElementById('orderTotal');
+        const paymentModal = document.getElementById('paymentModal');
+        const paymentOptions = document.querySelectorAll('.payment-option');
+        const accountingModal = document.getElementById('accountingModal');
+        const cashTotal = document.getElementById('cashTotal');
+        const cardTotal = document.getElementById('cardTotal');
+        const totalRevenue = document.getElementById('totalRevenue');
+        const closedTablesList = document.getElementById('closedTablesList');
+        const settingsModal = document.getElementById('settingsModal');
+        const settingsTabs = document.querySelectorAll('.settings-tab');
+        const tablesSettings = document.getElementById('tablesSettings');
+        const productsSettings = document.getElementById('productsSettings');
+        const tableSettingsGrid = document.getElementById('tableSettingsGrid');
+        const productList = document.getElementById('productList');
+        const moveMode = document.getElementById('moveMode');
+        const availableTables = document.getElementById('availableTables');
+
+        // Sayfa yüklendiğinde çalışacak fonksiyon
+        document.addEventListener('DOMContentLoaded', () => {
+            // Giriş butonu event listener
+            document.getElementById('loginBtn').addEventListener('click', handleLogin);
+            
+            // Muhasebe butonu event listener
+            document.getElementById('accountingBtn').addEventListener('click', showAccountingModal);
+            
+            // Ayarlar butonu event listener
+            document.getElementById('settingsBtn').addEventListener('click', showSettingsModal);
+            
+            // Masa detay kapatma butonu
+            document.getElementById('tableDetailClose').addEventListener('click', () => {
+                tableDetailContainer.style.display = 'none';
+            });
+            
+            // Ödeme butonu
+            document.getElementById('payBtn').addEventListener('click', showPaymentModal);
+            
+            // Taşıma butonu
+            document.getElementById('moveBtn').addEventListener('click', showMoveMode);
+            
+            // Kaydet butonu
+            document.getElementById('saveBtn').addEventListener('click', saveTable);
+            
+            // Ödeme seçenekleri
+            paymentOptions.forEach(option => {
+                option.addEventListener('click', () => {
+                    paymentOptions.forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+                    appData.selectedPayment = option.dataset.type;
+                });
+            });
+            
+            // Ödeme iptal butonu
+            document.getElementById('paymentCancel').addEventListener('click', () => {
+                paymentModal.style.display = 'none';
+                appData.selectedPayment = null;
+            });
+            
+            // Ödeme onay butonu
+            document.getElementById('paymentConfirm').addEventListener('click', processPayment);
+            
+            // Muhasebe kapatma butonu
+            document.getElementById('accountingClose').addEventListener('click', () => {
+                accountingModal.style.display = 'none';
+            });
+            
+            // Z raporu butonu
+            document.getElementById('generateReport').addEventListener('click', generateZReport);
+            
+            // Ayarlar kapatma butonu
+            document.getElementById('settingsClose').addEventListener('click', () => {
+                settingsModal.style.display = 'none';
+            });
+            
+            // Ayarlar tabları
+            settingsTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    settingsTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    appData.currentSettingsTab = tab.dataset.tab;
+                    
+                    if (appData.currentSettingsTab === 'tables') {
+                        tablesSettings.style.display = 'block';
+                        productsSettings.style.display = 'none';
+                    } else {
+                        tablesSettings.style.display = 'none';
+                        productsSettings.style.display = 'block';
+                    }
+                });
+            });
+            
+            // Masa ekleme butonu
+            document.getElementById('addTableBtn').addEventListener('click', addNewTable);
+            
+            // Ürün ekleme butonu
+            document.getElementById('addProductBtn').addEventListener('click', addNewProduct);
+            
+            // Taşıma iptal butonu
+            document.getElementById('cancelMove').addEventListener('click', () => {
+                moveMode.style.display = 'none';
+            });
+            
+            // Sayfa yüklendiğinde masaları oluştur
+            renderTables();
+            renderTableSettings();
+            renderProducts();
+        });
+
+        // Giriş işlemi
+        function handleLogin() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (username && password) {
+                appData.currentUser = username;
+                loggedInUser.textContent = username;
+                loginContainer.style.display = 'none';
+                mainContainer.style.display = 'flex';
+            } else {
+                alert('Lütfen kullanıcı adı ve şifre girin!');
+            }
+        }
+
+        // Masaları render etme
+        function renderTables() {
+            tablesGrid.innerHTML = '';
+            
+            appData.tables.forEach(table => {
+                const tableCard = document.createElement('div');
+                tableCard.className = `table-card ${table.status}`;
+                tableCard.innerHTML = `
+                    <div class="table-number">Masa ${table.number}</div>
+                    <div class="table-info">
+                        <span>Açılış:</span>
+                        <span>${table.openedAt ? formatTime(table.openedAt) : '-'}</span>
+                    </div>
+                    <div class="table-info">
+                        <span>Süre:</span>
+                        <span>${table.openedAt ? calculateDuration(table.openedAt) : '-'}</span>
+                    </div>
+                    <div class="table-total">${table.total.toFixed(2)} ₺</div>
+                `;
+                
+                tableCard.addEventListener('click', () => openTableDetail(table.number));
+                tablesGrid.appendChild(tableCard);
+            });
+        }
+
+        // Masa detayını açma
+        function openTableDetail(tableNumber) {
+            const table = appData.tables.find(t => t.number === tableNumber);
+            if (!table) return;
+            
+            appData.currentTable = table;
+            detailTableNumber.textContent = table.number;
+            
+            // Ürünleri render et
+            renderProductsList();
+            
+            // Siparişleri render et
+            renderCurrentOrder();
+            
+            // Toplamı güncelle
+            updateOrderTotal();
+            
+            // Detay ekranını göster
+            tableDetailContainer.style.display = 'flex';
+        }
+
+        // Ürün listesini render etme
+        function renderProductsList() {
+            productsList.innerHTML = '';
+            
+            appData.products.forEach(product => {
+                const productCard = document.createElement('div');
+                productCard.className = 'product-card';
+                productCard.innerHTML = `
+                    <div class="product-name">${product.name}</div>
+                    <div class="product-price">${product.price.toFixed(2)} ₺</div>
+                `;
+                
+                productCard.addEventListener('click', () => addProductToOrder(product));
+                productsList.appendChild(productCard);
+            });
+        }
+
+        // Ürünü siparişe ekleme
+        function addProductToOrder(product) {
+            const table = appData.currentTable;
+            if (!table) return;
+            
+            // Eğer ürün zaten siparişte varsa miktarını artır
+            const existingOrder = table.orders.find(order => order.product.id === product.id);
+            
+            if (existingOrder) {
+                existingOrder.quantity += 1;
+            } else {
+                table.orders.push({
+                    product,
+                    quantity: 1
+                });
+            }
+            
+            // Masayı dolu olarak işaretle
+            table.status = 'occupied';
+            if (!table.openedAt) {
+                table.openedAt = new Date();
+            }
+            
+            // Toplamı güncelle
+            calculateTableTotal(table);
+            
+            // Sipariş listesini yenile
+            renderCurrentOrder();
+            
+            // Masaları yenile
+            renderTables();
+        }
+
+        // Sipariş listesini render etme
+        function renderCurrentOrder() {
+            currentOrder.innerHTML = '';
+            
+            const table = appData.currentTable;
+            if (!table || table.orders.length === 0) {
+                currentOrder.innerHTML = '<div style="text-align: center; color: #999; padding: 20px;">Sipariş bulunmamaktadır</div>';
+                return;
+            }
+            
+            table.orders.forEach((order, index) => {
+                const orderItem = document.createElement('div');
+                orderItem.className = 'order-item';
+                orderItem.innerHTML = `
+                    <div>
+                        <div>${order.product.name}</div>
+                        <div>${(order.product.price * order.quantity).toFixed(2)} ₺</div>
+                    </div>
+                    <div class="order-item-controls">
+                        <button class="quantity-btn minus-btn" data-index="${index}">-</button>
+                        <input type="number" class="quantity-input" value="${order.quantity}" min="1" data-index="${index}">
+                        <button class="quantity-btn plus-btn" data-index="${index}">+</button>
+                        <button class="delete-btn" data-index="${index}"><i class="fas fa-trash"></i></button>
+                    </div>
+                `;
+                
+                currentOrder.appendChild(orderItem);
+            });
+            
+            // Event listener'ları ekle
+            document.querySelectorAll('.minus-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const index = parseInt(e.target.dataset.index);
+                    decreaseQuantity(index);
+                });
+            });
+            
+            document.querySelectorAll('.plus-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const index = parseInt(e.target.dataset.index);
+                    increaseQuantity(index);
+                });
+            });
+            
+            document.querySelectorAll('.quantity-input').forEach(input => {
+                input.addEventListener('change', (e) => {
+                    const index = parseInt(e.target.dataset.index);
+                    updateQuantity(index, parseInt(e.target.value));
+                });
+            });
+            
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const index = parseInt(e.target.dataset.index);
+                    removeProduct(index);
+                });
+            });
+        }
+
+        // Miktar azaltma
+        function decreaseQuantity(index) {
+            const table = appData.currentTable;
+            if (!table || !table.orders[index]) return;
+            
+            if (table.orders[index].quantity > 1) {
+                table.orders[index].quantity -= 1;
+            } else {
+                table.orders.splice(index, 1);
+            }
+            
+            // Eğer sipariş kalmadıysa masayı boş olarak işaretle
+            if (table.orders.length === 0) {
+                table.status = 'empty';
+                table.openedAt = null;
+            }
+            
+            // Toplamı güncelle
+            calculateTableTotal(table);
+            
+            // Sipariş listesini yenile
+            renderCurrentOrder();
+            
+            // Masaları yenile
+            renderTables();
+            
+            // Toplamı güncelle
+            updateOrderTotal();
+        }
+
+        // Miktar artırma
+        function increaseQuantity(index) {
+            const table = appData.currentTable;
+            if (!table || !table.orders[index]) return;
+            
+            table.orders[index].quantity += 1;
+            
+            // Toplamı güncelle
+            calculateTableTotal(table);
+            
+            // Sipariş listesini yenile
+            renderCurrentOrder();
+            
+            // Masaları yenile
+            renderTables();
+            
+            // Toplamı güncelle
+            updateOrderTotal();
+        }
+
+        // Miktar güncelleme
+        function updateQuantity(index, newQuantity) {
+            const table = appData.currentTable;
+            if (!table || !table.orders[index] || newQuantity < 1) return;
+            
+            table.orders[index].quantity = newQuantity;
+            
+            // Toplamı güncelle
+            calculateTableTotal(table);
+            
+            // Sipariş listesini yenile
+            renderCurrentOrder();
+            
+            // Masaları yenile
+            renderTables();
+            
+            // Toplamı güncelle
+            updateOrderTotal();
+        }
+
+        // Ürün silme
+        function removeProduct(index) {
+            const table = appData.currentTable;
+            if (!table || !table.orders[index]) return;
+            
+            table.orders.splice(index, 1);
+            
+            // Eğer sipariş kalmadıysa masayı boş olarak işaretle
+            if (table.orders.length === 0) {
+                table.status = 'empty';
+                table.openedAt = null;
+            }
+            
+            // Toplamı güncelle
+            calculateTableTotal(table);
+            
+            // Sipariş listesini yenile
+            renderCurrentOrder();
+            
+            // Masaları yenile
+            renderTables();
+            
+            // Toplamı güncelle
+            updateOrderTotal();
+        }
+
+        // Masa toplamını hesaplama
+        function calculateTableTotal(table) {
+            table.total = table.orders.reduce((sum, order) => {
+                return sum + (order.product.price * order.quantity);
+            }, 0);
+            
+            updateOrderTotal();
+        }
+
+        // Sipariş toplamını güncelleme
+        function updateOrderTotal() {
+            const table = appData.currentTable;
+            if (table) {
+                orderTotal.textContent = table.total.toFixed(2);
+            } else {
+                orderTotal.textContent = '0.00';
+            }
+        }
+
+        // Ödeme modalını gösterme
+        function showPaymentModal() {
+            const table = appData.currentTable;
+            if (!table || table.orders.length === 0) {
+                alert('Ödenecek bir sipariş bulunmamaktadır!');
+                return;
+            }
+            
+            appData.selectedPayment = null;
+            paymentOptions.forEach(opt => opt.classList.remove('selected'));
+            paymentModal.style.display = 'flex';
+        }
+
+        // Ödeme işlemi
+        function processPayment() {
+            if (!appData.selectedPayment) {
+                alert('Lütfen bir ödeme yöntemi seçin!');
+                return;
+            }
+            
+            const table = appData.currentTable;
+            if (!table) return;
+            
+            // Muhasebe bilgilerini güncelle
+            if (appData.selectedPayment === 'cash') {
+                appData.accounting.cashTotal += table.total;
+            } else {
+                appData.accounting.cardTotal += table.total;
+            }
+            
+            // Kapanan masalar listesine ekle
+            appData.accounting.closedTables.push({
+                tableNumber: table.number,
+                paymentType: appData.selectedPayment,
+                amount: table.total,
+                closedAt: new Date()
+            });
+            
+            // Masayı sıfırla
+            table.orders = [];
+            table.status = 'empty';
+            table.openedAt = null;
+            table.total = 0;
+            
+            // Modal'ı kapat
+            paymentModal.style.display = 'none';
+            
+            // Detay ekranını kapat
+            tableDetailContainer.style.display = 'none';
+            
+            // Masaları yenile
+            renderTables();
+            
+            // Muhasebe bilgilerini güncelle
+            updateAccountingInfo();
+        }
+
+        // Taşıma modunu gösterme
+        function showMoveMode() {
+            const table = appData.currentTable;
+            if (!table || table.orders.length === 0) {
+                alert('Taşınacak bir sipariş bulunmamaktadır!');
+                return;
+            }
+            
+            // Boş masaları listele
+            const emptyTables = appData.tables.filter(t => 
+                t.status === 'empty' && t.number !== table.number
+            );
+            
+            if (emptyTables.length === 0) {
+                alert('Boş masa bulunmamaktadır!');
+                return;
+            }
+            
+            availableTables.innerHTML = '';
+            
+            emptyTables.forEach(emptyTable => {
+                const tableBtn = document.createElement('div');
+                tableBtn.className = 'available-table';
+                tableBtn.textContent = `Masa ${emptyTable.number}`;
+                
+                tableBtn.addEventListener('click', () => {
+                    moveTableTo(emptyTable.number);
+                });
+                
+                availableTables.appendChild(tableBtn);
+            });
+            
+            moveMode.style.display = 'flex';
+        }
+
+        // Masayı taşıma
+        function moveTableTo(newTableNumber) {
+            const currentTable = appData.currentTable;
+            const targetTable = appData.tables.find(t => t.number === newTableNumber);
+            
+            if (!currentTable || !targetTable || targetTable.status !== 'empty') return;
+            
+            // Siparişleri ve bilgileri taşı
+            targetTable.orders = [...currentTable.orders];
+            targetTable.status = 'occupied';
+            targetTable.openedAt = currentTable.openedAt;
+            targetTable.total = currentTable.total;
+            
+            // Eski masayı sıfırla
+            currentTable.orders = [];
+            currentTable.status = 'empty';
+            currentTable.openedAt = null;
+            currentTable.total = 0;
+            
+            // Taşıma modunu kapat
+            moveMode.style.display = 'none';
+            
+            // Detay ekranını kapat
+            tableDetailContainer.style.display = 'none';
+            
+            // Masaları yenile
+            renderTables();
+        }
+
+        // Masayı kaydetme
+        function saveTable() {
+            const table = appData.currentTable;
+            if (!table) return;
+            
+            // Eğer sipariş yoksa masayı boş olarak işaretle
+            if (table.orders.length === 0) {
+                table.status = 'empty';
+                table.openedAt = null;
+                table.total = 0;
+            }
+            
+            // Detay ekranını kapat
+            tableDetailContainer.style.display = 'none';
+            
+            // Masaları yenile
+            renderTables();
+        }
+
+        // Muhasebe modalını gösterme
+        function showAccountingModal() {
+            updateAccountingInfo();
+            accountingModal.style.display = 'flex';
+        }
+
+        // Muhasebe bilgilerini güncelleme
+        function updateAccountingInfo() {
+            cashTotal.textContent = appData.accounting.cashTotal.toFixed(2) + ' ₺';
+            cardTotal.textContent = appData.accounting.cardTotal.toFixed(2) + ' ₺';
+            totalRevenue.textContent = (appData.accounting.cashTotal + appData.accounting.cardTotal).toFixed(2) + ' ₺';
+            
+            closedTablesList.innerHTML = '';
+            
+            appData.accounting.closedTables.forEach((table, index) => {
+                const tableItem = document.createElement('div');
+                tableItem.className = 'summary-item';
+                tableItem.innerHTML = `
+                    <span>Masa ${table.tableNumber} (${table.paymentType === 'cash' ? 'Nakit' : 'Kart'})</span>
+                    <span>${table.amount.toFixed(2)} ₺</span>
+                `;
+                closedTablesList.appendChild(tableItem);
+            });
+        }
+
+        // Z raporu oluşturma
+        function generateZReport() {
+            const now = new Date();
+            const reportData = `
+Z Raporu - ${formatDateTime(now)}
+
+Toplam Nakit: ${appData.accounting.cashTotal.toFixed(2)} ₺
+Toplam Kart: ${appData.accounting.cardTotal.toFixed(2)} ₺
+Genel Toplam: ${(appData.accounting.cashTotal + appData.accounting.cardTotal).toFixed(2)} ₺
+
+Kapanan Masalar:
+${appData.accounting.closedTables.map(table => 
+    `Masa ${table.tableNumber} - ${table.paymentType === 'cash' ? 'Nakit' : 'Kart'} - ${table.amount.toFixed(2)} ₺ - ${formatDateTime(table.closedAt)}`
+).join('\n')}
+            `;
+            
+            // Raporu indirme
+            const blob = new Blob([reportData], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `z_raporu_${formatDateForFile(now)}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Ayarlar modalını gösterme
+        function showSettingsModal() {
+            settingsModal.style.display = 'flex';
+        }
+
+        // Masa ayarlarını render etme
+        function renderTableSettings() {
+            tableSettingsGrid.innerHTML = '';
+            
+            appData.tables.forEach(table => {
+                const tableSetting = document.createElement('div');
+                tableSetting.className = 'table-card';
+                tableSetting.innerHTML = `
+                    <div class="table-number">Masa ${table.number}</div>
+                    <div style="margin-top: 15px; display: flex; justify-content: center; gap: 10px;">
+                        <button class="remove-btn" data-table="${table.number}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                
+                tableSetting.querySelector('.remove-btn').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    removeTable(table.number);
+                });
+                
+                tableSettingsGrid.appendChild(tableSetting);
+            });
+        }
+
+        // Yeni masa ekleme
+        function addNewTable() {
+            const newTableNumber = appData.tables.length + 1;
+            appData.tables.push({
+                number: newTableNumber,
+                status: 'empty',
+                openedAt: null,
+                orders: [],
+                total: 0
+            });
+            
+            renderTables();
+            renderTableSettings();
+        }
+
+        // Masa silme
+        function removeTable(tableNumber) {
+            if (appData.tables.length <= 1) {
+                alert('En az bir masa olmalıdır!');
+                return;
+            }
+            
+            const tableIndex = appData.tables.findIndex(t => t.number === tableNumber);
+            if (tableIndex === -1) return;
+            
+            const table = appData.tables[tableIndex];
+            if (table.status === 'occupied') {
+                alert('Dolu masalar silinemez!');
+                return;
+            }
+            
+            appData.tables.splice(tableIndex, 1);
+            
+            // Masaları yeniden numaralandır
+            appData.tables.forEach((table, index) => {
+                table.number = index + 1;
+            });
+            
+            renderTables();
+            renderTableSettings();
+        }
+
+        // Ürün listesini render etme
+        function renderProducts() {
+            productList.innerHTML = '';
+            
+            appData.products.forEach((product, index) => {
+                const productItem = document.createElement('div');
+                productItem.className = 'product-item';
+                productItem.innerHTML = `
+                    <div>
+                        <div>${product.name}</div>
+                        <div>${product.price.toFixed(2)} ₺</div>
+                    </div>
+                    <div class="product-item-actions">
+                        <button class="edit-btn" data-index="${index}">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="remove-btn" data-index="${index}">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                
+                productItem.querySelector('.edit-btn').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    editProduct(index);
+                });
+                
+                productItem.querySelector('.remove-btn').addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    removeProductFromList(index);
+                });
+                
+                productList.appendChild(productItem);
+            });
+        }
+
+        // Yeni ürün ekleme
+        function addNewProduct() {
+            const name = document.getElementById('productName').value;
+            const price = parseFloat(document.getElementById('productPrice').value);
+            
+            if (!name || isNaN(price) || price <= 0) {
+                alert('Lütfen geçerli bir ürün adı ve fiyat girin!');
+                return;
+            }
+            
+            const newId = appData.products.length > 0 ? 
+                Math.max(...appData.products.map(p => p.id)) + 1 : 1;
+            
+            appData.products.push({
+                id: newId,
+                name,
+                price
+            });
+            
+            // Formu temizle
+            document.getElementById('productName').value = '';
+            document.getElementById('productPrice').value = '';
+            
+            renderProducts();
+            renderProductsList();
+        }
+
+        // Ürün düzenleme
+        function editProduct(index) {
+            const product = appData.products[index];
+            if (!product) return;
+            
+            const newName = prompt('Yeni ürün adı:', product.name);
+            if (newName === null) return;
+            
+            const newPrice = parseFloat(prompt('Yeni fiyat:', product.price));
+            if (isNaN(newPrice) || newPrice <= 0) {
+                alert('Geçersiz fiyat!');
+                return;
+            }
+            
+            product.name = newName;
+            product.price = newPrice;
+            
+            renderProducts();
+            renderProductsList();
+        }
+
+        // Ürün silme
+        function removeProductFromList(index) {
+            const product = appData.products[index];
+            if (!product) return;
+            
+            // Bu ürünü kullanan masaları kontrol et
+            const usedInTables = appData.tables.some(table => 
+                table.orders.some(order => order.product.id === product.id)
+            );
+            
+            if (usedInTables) {
+                alert('Bu ürün kullanımda olduğu için silinemez!');
+                return;
+            }
+            
+            if (confirm(`${product.name} ürününü silmek istediğinize emin misiniz?`)) {
+                appData.products.splice(index, 1);
+                renderProducts();
+                renderProductsList();
+            }
+        }
+
+        // Yardımcı fonksiyonlar
+        function formatTime(date) {
+            return date.toLocaleTimeString('tr-TR', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function formatDateTime(date) {
+            return date.toLocaleString('tr-TR');
+        }
+
+        function formatDateForFile(date) {
+            return date.toISOString().slice(0, 19).replace(/[:T-]/g, '');
+        }
+
+        function calculateDuration(startTime) {
+            const now = new Date();
+            const diffMs = now - startTime;
+            const diffMins = Math.round(diffMs / 60000);
+            return `${diffMins} dakika`;
+        }
+    </script>
+</body>
+</html>
