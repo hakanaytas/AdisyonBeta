@@ -2,8 +2,8 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#ea7219"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23ea7219'/%3E%3Cpath d='M15 22h28v18a11 11 0 0 1-22 0V22m22 4h5a6 6 0 0 1 0 12h-5M13 52h37' stroke='%23fff5ea' stroke-width='4' stroke-linecap='round' fill='none'/%3E%3C/svg%3E"><meta name="description" content="Adio - Masa, sipariş ve ödeme yönetimi">
-<title>Adio · Adisyon</title>
+<meta name="theme-color" content="#174b35"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23174b35'/%3E%3Cpath d='M15 22h28v18a11 11 0 0 1-22 0V22m22 4h5a6 6 0 0 1 0 12h-5M13 52h37' stroke='%23ffffff' stroke-width='4' stroke-linecap='round' fill='none'/%3E%3C/svg%3E"><meta name="description" content="Adio - Masa, sipariş ve ödeme yönetimi">
+<title>Adio · Hakan Aytaş CodeBug Şirketi</title>
 <style>
 :root{--primary:#bf540b;--primary2:#df7419;--accent:#f08122;--accentdark:#d56510;--accentlight:#fff1df;--red:#d65b59;--bg:#fff8f2;--surface:#fff;--line:#efddcb;--text:#302b25;--muted:#857a70;--shadow:0 2px 13px #85410c10;--green:#d07316;--gold:#d49a34;--header:44px;--radius:10px}
 *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;font-family:Inter,'Segoe UI',Arial,sans-serif;color:var(--text);background:var(--bg);font-size:14px}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{cursor:not-allowed;opacity:.5}input,select,textarea{outline:none}input:focus,select:focus,textarea:focus{border-color:var(--accent)!important;box-shadow:0 0 0 3px #f081221b}input,textarea,select{background:#fff;color:var(--text)}.ico{width:19px;height:19px;vertical-align:middle;stroke:currentColor;fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:1.9;flex-shrink:0}.mini{width:16px;height:16px}.sm{font-size:12px}.muted{color:var(--muted)}.strong{font-weight:750}.hide{display:none!important}.sr-only{position:absolute;clip:rect(0,0,0,0);width:1px;height:1px;overflow:hidden}
@@ -155,6 +155,216 @@
   .setup-lead{font-size:13px}
 }
 @media(max-width:360px){.live-pill{font-size:0;gap:0;padding:8px}.live-pill i{height:8px;width:8px}.toolbar-right .btn-icon{width:33px}.table-card{height:115px;min-height:115px}}
+
+/* Adio V3 — beyaz arka plan, yeşil dolu masalar, beyaz boş masalar */
+:root{--bg:#ffffff;--surface:#ffffff;--line:#e7e9ed;--shadow:0 3px 16px #14202c0e}
+html,body,#app,.main-area,.home,.page-screen,.order-screen{background:#ffffff!important}
+.home-head,.tables-subhead,.table-scroll,.home-footnote{background:#ffffff!important}
+.home-head,.tables-subhead{border-bottom-color:#e9eaed}
+.home-footnote{color:#77818c!important}
+.table-card:not(.busy){background:#ffffff!important;border-color:#e6e9ed;color:#302820}
+.table-card:not(.busy) .table-status-dot{background:#c8d0d7}
+.table-card.busy{background:#c8f1d5!important;border:1px solid #7fcca0!important;color:#164f31!important;box-shadow:0 3px 12px #1a864118!important}
+.table-card.busy:hover{background:#b6ebc7!important;border-color:#42ae71!important;box-shadow:0 6px 18px #1a86412b!important}
+.table-card.busy .table-status-dot{background:#23945a!important;box-shadow:0 0 0 4px #a6dfbc!important}
+.table-card.busy .tbl-name,.table-card.busy .tbl-total{color:#14532d!important}
+.table-card.busy .tbl-customer,.table-card.busy .tbl-time,.table-card.busy .tbl-due{color:#246642!important}
+.catalog-content,.page-main,.page-head,.report-layout,.report-content,.report-aside{background:#ffffff!important}
+.check-panel,.check-bottom,.cat-grid,.drawer,.drawer-head,.drawer-bottom{background:#ffffff!important}
+.setup-shell,.setup-center{background:#ffffff!important}
+.setup-glow{opacity:.35}
+@media(max-width:680px){.app-area>.left-rail{background:#fff!important}.table-card.busy{background:#c8f1d5!important}}
+
+/* Adio V4 — masa durumları + geniş ödeme ekranı */
+.payment-screen{height:100%;min-height:0;background:#fff;display:flex;flex-direction:column;color:#292c30}
+.payment-head{height:84px;min-height:84px;display:flex;align-items:center;gap:22px;padding:0 28px;border-bottom:1px solid #e9eaec;background:#fff}
+.payment-back{border:1px solid #e5e7eb;background:#fff;color:#b75d18;border-radius:10px;display:flex;align-items:center;gap:9px;padding:12px 14px;font-weight:800;white-space:nowrap}
+.payment-back:hover{background:#fff4e8}
+.payment-head h2{margin:3px 0 0;font-size:25px;letter-spacing:-.7px}.payment-head h2 span{font-size:14px;color:#7b838b;margin-left:7px;font-weight:600;letter-spacing:0}
+.payment-eyebrow{font-size:10px;letter-spacing:1.5px;color:#d16d1e;font-weight:850}
+.payment-order-no{margin-left:auto;white-space:nowrap;color:#858b94;font-size:12px;display:flex;align-items:center;gap:7px}
+.payment-body{display:grid;grid-template-columns:minmax(275px,38%) minmax(0,1fr);min-height:0;flex:1;overflow:hidden;background:#fff}
+.payment-receipt{padding:23px 24px 22px;background:#fff;border-right:1px solid #e9eaec;display:flex;flex-direction:column;min-height:0}
+.payment-card-caption{font-size:13px;font-weight:850;display:flex;align-items:center;gap:9px;color:#34393e;margin-bottom:20px}.payment-card-caption .ico{color:#d8701e}
+.payment-bill-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:13px 0 15px;border-bottom:1px solid #eceef1}
+.payment-bill-head b{font-size:17px}.payment-bill-head span{background:#fff2e7;color:#ac5e1e;padding:7px 9px;border-radius:50px;font-size:11px;font-weight:800;white-space:nowrap}
+.payment-bill-lines{flex:1;overflow:auto;min-height:95px}.payment-bill-line{padding:15px 0;display:flex;align-items:flex-start;justify-content:space-between;gap:12px;border-bottom:1px solid #f1f2f4;font-size:13px}
+.payment-bill-line strong{font-weight:750}.payment-bill-line b{white-space:nowrap}.payment-bill-line small{display:block;color:#92989e;margin-top:5px;font-weight:500;font-size:11px}
+.payment-bill-totals{display:flex;flex-direction:column;gap:12px;padding-top:19px}.payment-bill-totals>div{display:flex;align-items:center;justify-content:space-between;font-size:13px;gap:10px;color:#747c82}.payment-bill-totals b{color:#34383b;font-size:13px}
+.payment-bill-totals .payment-bill-due{border-top:1px solid #e7e9ec;padding-top:15px;color:#303332;font-weight:850}.payment-bill-due b{font-size:23px!important;color:#2a884a!important}
+.payment-link{height:47px;min-height:47px;margin-top:22px;width:100%;border:1px solid #e6e9ec;background:white;border-radius:10px;color:#bd671c;font-weight:750;display:flex;align-items:center;justify-content:center;gap:10px}.payment-link:hover{background:#fff3e8}
+.payment-work{min-height:0;overflow:auto;padding:23px clamp(18px,3vw,44px) 20px;max-width:100%}
+.payment-work>.payment-card-caption{margin-bottom:15px}.payment-remain{border-radius:15px;padding:20px 23px;background:#f1faf4;border:1px solid #d7eadc;display:flex;flex-direction:column;gap:6px}
+.payment-remain span{font-size:11px;font-weight:850;color:#3e8056;letter-spacing:1px}.payment-remain strong{font-size:clamp(27px,3.2vw,43px);font-weight:900;letter-spacing:-1.3px;color:#1f7d43}.payment-remain small{font-size:12px;color:#6a9176}
+.payment-form{padding-top:19px}.payment-form-label{display:flex;align-items:center;justify-content:space-between;color:#474b4f;font-size:13px;font-weight:850;margin-bottom:9px}.payment-form-label span:last-child{font-size:11px;color:#9299a0;font-weight:650}
+.payment-money-field{height:63px;display:flex;align-items:center;gap:12px;border:2px solid #edb480;border-radius:12px;background:#fff;padding:0 19px}.payment-money-field:focus-within{box-shadow:0 0 0 4px #f18a241c}
+.payment-money-field>span{font-size:26px;font-weight:800;color:#d46b18}.payment-money-field input{width:100%;height:100%;border:0;font-size:27px;font-weight:850;outline:0;color:#2d3032;min-width:0;background:transparent}
+.payment-money-field input:focus{box-shadow:none!important;border:0!important}.payment-presets{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:12px}
+.payment-presets button{min-height:42px;display:flex;align-items:center;justify-content:center;gap:5px;border:1px solid #e8e8ea;background:#fff;color:#515862;font-weight:700;border-radius:9px;padding:4px}
+.payment-presets button:hover{background:#fff2e7;border-color:#ecc59d;color:#b85a16}.payment-method-label{margin-top:22px}.payment-methods{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.payment-method{position:relative;min-width:0;border:1px solid #e4e7ea;min-height:91px;border-radius:12px;background:white;color:#42484c;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;font-size:12px;font-weight:800;padding:8px 4px}
+.payment-method>.ico{width:24px;height:24px;color:#b8a89a}.payment-method.selected{background:#fff3e7;border:2px solid #e98228;color:#a84e0a}.payment-method.selected>.ico{color:#d97117}.payment-method>.method-check{position:absolute;right:7px;top:4px;color:#d6711b}
+.payment-bottom-grid{display:grid;grid-template-columns:minmax(200px,1fr) minmax(165px,1fr);gap:15px;margin-top:20px}
+.payment-keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;grid-auto-rows:44px}.payment-key{background:#fff;border:1px solid #e5e7e9;border-radius:9px;color:#303842;font-size:19px;font-weight:800}.payment-key:hover{background:#fff1e6;border-color:#e3b78d}.payment-key.utility-key{color:#cf6c1a;background:#fff7ed}
+.payment-keypad .payment-key:last-child{grid-column:span 2}
+.payment-cash-area{display:flex;flex-direction:column;gap:13px;justify-content:flex-end}.payment-tender{border:1px solid #ebecee;border-radius:11px;padding:13px;background:#fff}
+.payment-tender label{display:block;font-size:11px;font-weight:750;color:#737a80;margin-bottom:8px}.payment-tender input{width:100%;padding:9px;border:1px solid #dfe2e5;border-radius:7px;min-height:38px}
+.payment-change,.payment-to-collect{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:10px;font-size:12px;color:#737a80}.payment-change b{font-size:15px;color:#1f8849}.payment-to-collect{margin-top:auto;background:#f5f6f7;border-radius:10px;padding:15px 12px;font-weight:750}.payment-to-collect b{font-size:15px;color:#353b40;white-space:nowrap}
+.payment-security{color:#8a8e93;font-size:11px;line-height:1.5;display:flex;align-items:flex-start;gap:7px}.payment-security>.ico{width:16px;height:16px}
+.payment-footer{display:flex;gap:11px;margin-top:18px}.payment-footer button{min-height:54px;border-radius:10px;font-weight:850;font-size:14px;padding:0 15px}.payment-cancel{flex:0 0 25%;background:#fff;border:1px solid #e1e5e9;color:#565d62}.payment-confirm{flex:1;background:#e87b23;color:#fff;border:1px solid #d86e1a;display:flex;align-items:center;justify-content:center;gap:10px}.payment-confirm:hover{background:#cc6415}
+@media(max-width:1030px){.payment-body{grid-template-columns:minmax(250px,35%) minmax(0,1fr)}.payment-receipt{padding:20px 16px}.payment-work{padding:18px 15px}.payment-methods{grid-template-columns:repeat(2,minmax(0,1fr))}.payment-method{min-height:65px;flex-direction:row}.payment-method>.ico{width:19px;height:19px}.payment-bottom-grid{grid-template-columns:1fr}.payment-cash-area{display:grid;grid-template-columns:repeat(2,1fr)}.payment-tender{grid-row:span 2}.payment-keypad{grid-auto-rows:41px}}
+@media(max-width:680px){.payment-head{height:72px;min-height:72px;padding:0 11px;gap:10px}.payment-head h2{font-size:19px}.payment-head h2 span{display:block;margin:2px 0 0;font-size:11px}.payment-head .payment-order-no{display:none}.payment-back{padding:10px;font-size:11px}.payment-back>span{display:none}.payment-body{display:block;overflow:auto}.payment-receipt{display:block;min-height:auto;padding:12px 13px;border-right:0;border-bottom:1px solid #e7e9ea}.payment-receipt .payment-card-caption{margin-bottom:6px}.payment-bill-head,.payment-bill-lines,.payment-bill-totals>div:not(.payment-bill-due),.payment-link{display:none}.payment-bill-totals{padding-top:0}.payment-bill-totals .payment-bill-due{padding:6px 0;border:0}.payment-bill-due b{font-size:22px!important}.payment-work{overflow:visible;padding:15px 13px 35px}.payment-remain{padding:12px 15px;gap:4px}.payment-remain strong{font-size:30px}.payment-remain small{font-size:11px}.payment-form{padding-top:15px}.payment-money-field{height:57px}.payment-money-field input{font-size:24px}.payment-methods{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}.payment-method{min-height:65px;flex-direction:column;gap:3px;font-size:10px}.payment-method>.ico{width:19px;height:19px}.payment-method-label{margin-top:18px}.payment-bottom-grid{grid-template-columns:1fr;gap:11px}.payment-keypad{grid-auto-rows:41px}.payment-cash-area{display:block}.payment-tender{padding:10px}.payment-security{margin-top:9px}.payment-footer{margin-top:14px}.payment-footer button{min-height:50px}.payment-footer .payment-cancel{flex-basis:30%}.payment-presets{gap:5px}.payment-presets button{font-size:11px}}
+@media(max-width:350px){.payment-methods{grid-template-columns:repeat(2,1fr)}.payment-method{flex-direction:row}.payment-presets button{font-size:10px}.payment-head h2{font-size:17px}}
+
+
+/* ADIO V5: monochrome outline interface (table status colors intentionally preserved) */
+:root{--primary:#171717;--primary2:#333333;--accent:#181818;--accentdark:#111111;--accentlight:#f5f5f5;--bg:#fff;--surface:#fff;--line:#dedede;--text:#171717;--muted:#626262;--shadow:none;--gold:#333;--red:#c73939}
+html,body,#app,.main-area,.home,.page-screen,.order-screen,.payment-screen{background:#fff!important;color:#171717}
+.titlebar{background:#181818!important;color:#fff!important}
+.topline{color:#171717!important;background:#fff!important}
+.home-head,.tables-subhead,.home-footnote{background:#fff!important}
+.home-heading .eyebrow,.tables-subhead span:first-child,.home-head h2,.topline .logo-brand,.topline .utility,.counter,.home-footnote{color:#252525!important}
+.table-count,.counter,.live-pill,.group-tabs,.zone-list button.active .counter{background:#f5f5f5!important;color:#171717!important;border-color:#d6d6d6!important}
+.live-pill{border:1px solid #d6d6d6!important}.live-pill i{background:#202020!important}
+.table-card:not(.busy){background:#fff!important;border:1.5px solid #d7d7d7!important;color:#171717!important;box-shadow:none!important}
+.table-card:not(.busy):hover{border-color:#171717!important}
+/* The occupied-table green is an intentional exception. Do not recolor it. */
+.table-card.busy{background:#c8f1d5!important;border:1px solid #7fcca0!important;color:#164f31!important;box-shadow:0 3px 12px #1a864118!important}
+.table-card.busy:hover{background:#b6ebc7!important;border-color:#42ae71!important}
+.table-card.busy .tbl-name,.table-card.busy .tbl-total{color:#14532d!important}
+.table-card.busy .tbl-customer,.table-card.busy .tbl-time,.table-card.busy .tbl-due{color:#246642!important}
+.table-card.busy .table-status-dot{background:#23945a!important;box-shadow:0 0 0 4px #a6dfbc!important}
+.table-card:not(.busy) .table-status-dot{background:#a0a0a0!important}
+.btn-icon,.pill-btn,.small-btn,.action-btn,.rail-btn,.product-card,.payment-key,.payment-method,.payment-presets button,.payment-cancel,.payment-confirm,.setup-primary,.setup-secondary{box-shadow:none!important;transition:background .15s,border-color .15s!important}
+.btn-icon,.pill-btn,.rail-btn,.small-btn:not(.filled),.action-btn.outline{border:1px solid #d8d8d8!important;color:#171717!important;background:#fff!important}
+.btn-icon:hover,.pill-btn:hover,.rail-btn:hover,.small-btn:hover,.product-card:hover,.product-card.has-qty:hover{border-color:#171717!important;background:#f7f7f7!important}
+.action-btn.primary,.action-btn.success,.small-btn.filled,.payment-confirm,.setup-primary,.order-action,.order-title,.order-top-right .order-action{background:#191919!important;border-color:#191919!important;color:#fff!important}
+.action-btn.secondary,.action-btn.outline,.payment-cancel,.setup-secondary{background:#fff!important;color:#191919!important;border:1px solid #d1d1d1!important}
+.action-btn.success:hover,.action-btn.primary:hover,.small-btn.filled:hover,.payment-confirm:hover,.setup-primary:hover{background:#343434!important;color:white!important}
+.order-screen,.order-body,.catalog-content,.cat-grid,.check-panel,.check-bottom,.report-layout,.report-content,.report-aside,.page-head,.page-main{background:#fff!important}
+.cat-grid button.active{background:#ededed!important;color:#111!important;border-bottom-color:#111!important}.cat-grid button:hover{background:#f5f5f5!important}
+.product-card{border:1px solid #dadada!important;background:#fff!important;color:#181818!important}
+.quick-qty strong{background:#191919!important}.quick-qty button{color:#191919!important}
+.badge.orange,.badge.green,.drawer-item.selected,.report-aside button.active,.modal-stat,.preset-row button.active{background:#ededed!important;color:#171717!important}
+.payment-method.selected,.payment-presets button.active{border-color:#171717!important;background:#f0f0f0!important;color:#171717!important}
+.status-green,.price-positive{color:#14532d!important}
+.setup-shell,.setup-center{background:#fff!important}.setup-glow{display:none!important}.setup-mark,.setup-symbol{background:#191919!important;color:#fff!important;box-shadow:none!important}.setup-card{border:1px solid #d7d7d7!important;box-shadow:0 10px 38px #0000000b!important}.setup-card h1 em,.setup-kicker,.setup-logo,.setup-top-label strong{color:#111!important}.setup-progress .on{background:#111!important}.setup-feature-grid>div,.setup-hint{background:#f7f7f7!important;border:1px solid #ddd!important;color:#333!important}.setup-feature-grid .ico,.setup-hint .ico{color:#111!important}.setup-form>label input{background:#fff!important;border-color:#ccc!important}
+.drawer,.modal{box-shadow:0 14px 45px #0002!important}.modal-overlay{background:#0008!important}
+.app-credit{margin-left:auto;font-size:11px;white-space:nowrap;letter-spacing:.1px;color:#5c5c5c;font-weight:650}
+.brand-credit-top{font-size:11px;opacity:.82;font-weight:400;margin-left:9px}
+@media(max-width:900px){.app-credit{font-size:10px;white-space:normal;text-align:right;max-width:170px}}
+@media(max-width:680px){
+ html,body{width:100%;min-width:0;overscroll-behavior-y:none}
+ .main-area,.home,.order-screen,.page-screen,.payment-screen{min-width:0}
+ .home-head{padding:0 9px!important}
+ .table-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:9px!important}
+ .table-card{min-width:0!important;border-radius:9px!important}
+ .tbl-name,.tbl-customer,.tbl-total{overflow-wrap:anywhere}
+ .toolbar-right{gap:5px}.btn-icon{min-width:34px}
+ .order-search input{min-width:0}
+ .cat-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .prod-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .check-panel{max-width:none!important}
+ .payment-screen,.payment-work,.payment-bill,.payment-body{min-width:0}
+ .payment-money-field input{min-width:0}
+ .payment-methods{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+ .app-credit{font-size:9px;max-width:120px}
+ .brand-credit-top{display:none}
+ .setup-footer{color:#444!important}
+}
+@media(max-width:360px){.table-grid{gap:6px!important}.table-scroll{padding:7px!important}.payment-method{min-width:0}}
+/* Printable receipt: content-based height, no padded blank paper. */
+#printArea{display:none}
+#printArea.print-measure{display:block!important;position:fixed!important;left:-10000px!important;top:0!important;visibility:hidden!important;width:72mm!important;max-width:72mm!important;min-height:0!important;padding:0!important;margin:0!important;height:auto!important;overflow:visible!important}
+.receipt,.receipt *{box-sizing:border-box}
+.receipt .r-brand{text-align:center;font-size:14px;font-weight:800;margin:0 0 2mm;line-height:1.2;overflow-wrap:anywhere}
+.receipt .r-title{text-align:center;font-size:10px;letter-spacing:.5px;margin:0 0 2mm;font-weight:700}
+.receipt .r-meta{display:grid;grid-template-columns:1fr auto;gap:1mm 3mm;font-size:9.5px;line-height:1.25;margin-bottom:2mm}
+.receipt .r-meta span:nth-child(even){text-align:right}
+.receipt .r-rule{border:0;border-top:1px dashed #333;margin:1.3mm 0}
+.receipt .r-items{width:100%;border-collapse:collapse;table-layout:fixed;font-size:10px}
+.receipt .r-items th,.receipt .r-items td{padding:1mm 0!important;border:0!important;text-align:left;vertical-align:top;line-height:1.2;overflow-wrap:anywhere}
+.receipt .r-items th:nth-child(1),.receipt .r-items td:nth-child(1){width:9mm}
+.receipt .r-items th:nth-child(3),.receipt .r-items td:nth-child(3){width:19mm;text-align:right}
+.receipt .r-items .r-unit{display:block;font-size:8px;font-weight:400}
+.receipt .r-total-row{display:flex;justify-content:space-between;align-items:baseline;gap:4mm;font-size:10px;padding:1mm 0}
+.receipt .r-total-row.grand{font-size:13px;font-weight:800;border-top:1px dashed #222;padding-top:1.8mm;margin-top:.5mm}
+.receipt .r-footer{text-align:center;margin:2mm 0 0;font-size:8.5px;line-height:1.35}
+.receipt .r-owner{text-align:center;margin:1.5mm 0 0;font-size:8px;font-weight:700}
+@media print{
+ @page{size:80mm auto;margin:0}
+ html,body{background:#fff!important;width:80mm!important;height:auto!important;min-height:0!important;overflow:visible!important;margin:0!important;padding:0!important}
+ body *{visibility:hidden!important}
+ #app,#overlays,#toastWrap{display:none!important}
+ #printArea,#printArea *{visibility:visible!important}
+ #printArea{display:block!important;position:static!important;left:auto!important;top:auto!important;visibility:visible!important;width:72mm!important;max-width:72mm!important;height:auto!important;min-height:0!important;max-height:none!important;margin:0!important;padding:1.5mm 0 0 0!important;overflow:visible!important;box-shadow:none!important;break-inside:avoid;page-break-inside:avoid;font:10px Arial,sans-serif!important;color:#000!important}
+ #printArea.report-print{width:72mm!important}
+ #printArea .r-items{font-size:10px!important}
+}
+
+
+/* Finish monochrome outline controls; status-green table cards are exempt. */
+.order-search,.order-top,.order-body,.payment-head,.payment-receipt,.payment-work{background:#fff!important}
+.payment-head{border-bottom:1px solid #ddd!important}
+.payment-back,.payment-link{color:#171717!important;border-color:#d0d0d0!important;background:#fff!important}
+.payment-back:hover,.payment-link:hover,.payment-key:hover,.payment-presets button:hover{background:#f4f4f4!important;color:#111!important;border-color:#111!important}
+.payment-remain{background:#fafafa!important;border:1px solid #d5d5d5!important}
+.payment-remain span,.payment-remain strong,.payment-remain small{color:#171717!important}
+.payment-money-field{border-color:#161616!important;background:#fff!important}
+.payment-money-field>span,.payment-key.utility-key,.payment-method>.ico,.payment-method.selected>.ico,.payment-method>.method-check{color:#171717!important}
+.payment-key.utility-key{background:#f4f4f4!important}
+.payment-bill-due b,.payment-change b{color:#171717!important}
+.check-panel,.cat-grid,.product-card{box-shadow:none!important}
+.modal-head h3,.modal-stat b,.drawer-head,.drawer-item,.drawer-item.selected,.drawer-group-label{color:#171717!important}
+.preset-row button.active{background:#1c1c1c!important;color:#fff!important;border-color:#171717!important}
+.setup-logo,.setup-card h1,.setup-form>label,.setup-lead{color:#171717!important}
+.setup-top-label,.setup-footer{color:#555!important}
+.setup-progress span{background:#e5e5e5!important}.setup-progress span.on{background:#191919!important}
+.setup-secondary{color:#171717!important}
+@media(max-width:680px){
+ .payment-head{padding-inline:10px!important}
+ .payment-work{padding:12px 11px max(16px,env(safe-area-inset-bottom))!important}
+ .payment-key{min-height:44px}
+ .check-bottom{padding-bottom:max(12px,env(safe-area-inset-bottom))!important}
+ .table-card.busy{background:#c8f1d5!important}
+}
+
+
+/* ADIO V6 — dark forest-green outline theme. Keep occupied cards green. */
+:root{--primary:#174b35;--primary2:#245b42;--accent:#174b35;--accentdark:#103e2b;--accentlight:#eef6f0;--bg:#fff;--surface:#fff;--line:#b9cfc1;--text:#183a2a;--muted:#607468;--shadow:none;--green:#14532d;--gold:#174b35;--red:#b73232}
+html,body,#app,.main-area,.home,.page-screen,.order-screen,.payment-screen{background:#fff!important;color:var(--text)!important}
+.titlebar{background:#174b35!important;color:#fff!important}
+.topline,.home-head,.tables-subhead,.home-footnote,.order-screen,.order-body,.catalog-content,.cat-grid,.check-panel,.check-bottom,.report-layout,.report-content,.report-aside,.page-head,.page-main,.payment-head,.payment-receipt,.payment-work,.setup-shell,.setup-center{background:#fff!important}
+.topline,.home-heading .eyebrow,.tables-subhead span:first-child,.home-head h2,.topline .logo-brand,.topline .utility,.home-footnote,.app-credit{color:#174b35!important}
+.left-rail,.drawer,.modal,.setup-card{background:#fff!important}
+.table-count,.counter,.live-pill,.group-tabs,.zone-list button.active .counter{background:#eef6f0!important;color:#174b35!important;border-color:#b9d0c1!important}
+.live-pill{border:1px solid #b9d0c1!important}.live-pill i{background:#174b35!important}
+.table-card:not(.busy){background:#fff!important;border:1.5px solid #aec9b7!important;color:#174b35!important;box-shadow:none!important}
+.table-card:not(.busy):hover{border-color:#174b35!important;background:#f7fbf8!important}
+/* Do not change occupied-table green */
+.table-card.busy{background:#c8f1d5!important;border:1px solid #7fcca0!important;color:#164f31!important;box-shadow:0 3px 12px #1a864118!important}
+.table-card.busy:hover{background:#b6ebc7!important;border-color:#42ae71!important}
+.table-card.busy .tbl-name,.table-card.busy .tbl-total{color:#14532d!important}
+.table-card.busy .tbl-customer,.table-card.busy .tbl-time,.table-card.busy .tbl-due{color:#246642!important}
+.table-card.busy .table-status-dot{background:#23945a!important;box-shadow:0 0 0 4px #a6dfbc!important}
+.table-card:not(.busy) .table-status-dot{background:#719c81!important}
+.btn-icon,.pill-btn,.rail-btn,.small-btn:not(.filled),.action-btn.secondary,.action-btn.outline,.payment-back,.payment-link,.payment-cancel,.setup-secondary,.payment-key{border:1px solid #a9c5b3!important;color:#174b35!important;background:#fff!important;box-shadow:none!important}
+.btn-icon:hover,.pill-btn:hover,.rail-btn:hover,.small-btn:hover,.product-card:hover,.product-card.has-qty:hover,.payment-back:hover,.payment-link:hover,.payment-key:hover,.payment-presets button:hover{border-color:#174b35!important;background:#f0f8f2!important;color:#174b35!important}
+.action-btn.primary,.action-btn.success,.small-btn.filled,.payment-confirm,.setup-primary,.order-action,.order-title,.order-top-right .order-action{background:#174b35!important;border-color:#174b35!important;color:#fff!important}
+.action-btn.primary:hover,.action-btn.success:hover,.small-btn.filled:hover,.payment-confirm:hover,.setup-primary:hover{background:#286447!important;color:#fff!important}
+.cat-grid button{background:#fff!important;color:#174b35!important}.cat-grid button.active{background:#eef6f0!important;color:#174b35!important;border-bottom-color:#174b35!important}.cat-grid button:hover{background:#f0f8f2!important}
+.product-card{border:1px solid #b9d0c1!important;background:#fff!important;color:#183a2a!important;box-shadow:none!important}.quick-qty strong{background:#174b35!important}.quick-qty button{color:#174b35!important}
+.badge.orange,.badge.green,.drawer-item.selected,.report-aside button.active,.modal-stat{background:#eef6f0!important;color:#174b35!important}
+.payment-method.selected,.payment-presets button.active,.preset-row button.active{border-color:#174b35!important;background:#eef6f0!important;color:#174b35!important}
+.preset-row button.active{background:#174b35!important;color:#fff!important}
+.payment-head{border-bottom:1px solid #b9d0c1!important}.payment-remain{background:#f7fbf8!important;border:1px solid #b9d0c1!important}.payment-remain span,.payment-remain strong,.payment-remain small,.payment-bill-due b,.payment-change b{color:#174b35!important}
+.payment-money-field{border-color:#174b35!important;background:#fff!important}.payment-money-field>span,.payment-key.utility-key,.payment-method>.ico,.payment-method.selected>.ico,.payment-method>.method-check{color:#174b35!important}.payment-key.utility-key{background:#f0f8f2!important}
+.modal-head h3,.modal-stat b,.drawer-head,.drawer-item,.drawer-item.selected,.drawer-group-label,.setup-logo,.setup-card h1,.setup-form>label,.setup-lead{color:#174b35!important}
+.setup-mark,.setup-symbol{background:#174b35!important;color:#fff!important;box-shadow:none!important}.setup-card{border:1px solid #b9d0c1!important}.setup-progress span.on{background:#174b35!important}
+.status-green,.price-positive{color:#14532d!important}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid #174b35!important;outline-offset:2px}
+@media(max-width:680px){.table-card.busy{background:#c8f1d5!important}.app-area>.left-rail{background:#fff!important}}
+
 </style>
 </head>
 <body>
@@ -189,7 +399,7 @@ const seedProducts=[
 ];
 function defaultState(){let categories=seedCategories.map((name,i)=>({id:'cat'+i,name}));let zones=[{id:'z1',name:'Salon'}];let tables=[];for(let i=1;i<=24;i++)tables.push({id:`z1_t${i}`,zoneId:'z1',name:'Masa '+i});return {version:1,settings:{business:'',operator:'Kasiyer',showTips:true,setupDone:false},categories,zones,tables,products:seedProducts.map(([c,name,price],i)=>({id:'p'+i,categoryId:'cat'+c,name,price,active:true})),orders:{},history:[],operators:['Kasiyer'],seq:1}}
 function load(){try{let val=localStorage.getItem(STORAGE);if(!val)return defaultState();let s=JSON.parse(val);if(!s||!Array.isArray(s.tables)||!Array.isArray(s.products)||!s.orders||!Array.isArray(s.history))throw Error('format');return s}catch(e){console.warn(e);return defaultState()}}
-let st=load();let ui={route:'home',zone:'z2',homeMode:'tables',setupStep:0,tableId:null,category:'cat0',drawer:false,modal:null,search:'',mobileOrderTab:'products',reportTab:'category',reportFrom:dateKey(new Date()),reportTo:dateKey(new Date()),reportText:'',manageSearch:'',manageCat:'',statusFilter:'all'};
+let st=load();let ui={route:'home',zone:'z2',homeMode:'tables',setupStep:0,tableId:null,category:'cat0',drawer:false,modal:null,search:'',mobileOrderTab:'products',reportTab:'category',reportFrom:dateKey(new Date()),reportTo:dateKey(new Date()),reportText:'',manageSearch:'',manageCat:'',statusFilter:'all',payAmount:'',payMethod:'Nakit',payKeyFresh:true};
 function persist(){try{localStorage.setItem(STORAGE,JSON.stringify(st))}catch(e){toast('Tarayıcı verileri saklayamadı. Yedek almanızı öneririz.','error')}}
 function toast(msg,type='success'){let el=document.createElement('div');el.className='toast '+type;el.textContent=msg;document.querySelector('#toastWrap').append(el);setTimeout(()=>el.remove(),3500)}
 function getOrder(){return ui.tableId?st.orders[ui.tableId]:null}
@@ -206,21 +416,84 @@ function qtyOf(id){let o=getOrder();return o?.items.filter(it=>it.productId===id
 function getOpenCount(zone){return st.tables.filter(t=>t.zoneId===zone&&st.orders[t.id]?.items.length).length}
 function getOrCreateOrder(id){if(!st.orders[id])st.orders[id]={id:'A'+String(st.seq++).padStart(7,'0'),tableId:id,label:getTableName(id),type:id.startsWith('take_')?'Gel Al':id.startsWith('delivery_')?'Paket':'Masa',createdAt:new Date().toISOString(),items:[],payments:[],discountType:'amount',discount:0,guest:'',guestCount:1,note:'',status:'Yeni',operator:st.settings.operator};return st.orders[id]}
 function navigate(route){ui.route=route;ui.drawer=false;ui.modal=null;ui.search='';ui.manageSearch='';render()}
-function enterTable(id){ui.tableId=id;ui.route='order';ui.category=st.categories[0]?.id||'';ui.search='';ui.mobileOrderTab='products';render()}
+function enterTable(id){ui.tableId=id;ui.route='order';ui.category=st.categories[0]?.id||'';ui.search='';ui.mobileOrderTab='products';ui.payAmount='';ui.payMethod='Nakit';ui.payKeyFresh=true;render()}
 function addItem(productId){let p=st.products.find(p=>p.id===productId);if(!p||!p.active)return;let o=getOrCreateOrder(ui.tableId),it=o.items.find(i=>i.productId===p.id&&i.status==='Yeni'&&(!i.note));if(it)it.qty++;else o.items.push({id:uid('l'),productId:p.id,name:p.name,categoryId:p.categoryId,price:p.price,qty:1,status:'Yeni',note:''});persist();render();}
 function changeQty(productId,delta){const o=getOrder();if(!o){if(delta>0)addItem(productId);return}let matches=o.items.filter(i=>i.productId===productId);let it=matches.find(i=>i.status==='Yeni')||matches[matches.length-1];if(!it){if(delta>0)addItem(productId);return}if(delta>0){if(it.status!=='Yeni'){addItem(productId);return}it.qty++}else{if(it.status!=='Yeni'){toast('Gönderilmiş ürünü değiştirmek için satır menüsünü kullanın.','error');return}if(it.qty===1){const totalAfter=orderTotal({...o,items:o.items.filter(x=>x.id!==it.id)});if(orderPaid(o)>totalAfter+.005){toast('Alınan ödemeden düşük tutara inilemez.','error');return}o.items=o.items.filter(x=>x.id!==it.id)}else{const totalAfter=orderTotal({...o,items:o.items.map(x=>x.id===it.id?{...x,qty:x.qty-1}:x)});if(orderPaid(o)>totalAfter+.005){toast('Alınan ödemeden düşük tutara inilemez.','error');return}it.qty--}}if(o.items.length===0&&orderPaid(o)===0){delete st.orders[ui.tableId]}persist();render()}
-function saveOrder(){let o=getOrder();if(!o||!o.items.length){toast('Kaydedilecek ürün bulunamadı.','error');return}let changes=o.items.filter(x=>x.status==='Yeni').length;o.items.forEach(x=>{if(x.status==='Yeni')x.status='Hazırlanıyor'});o.status='Hazırlanıyor';o.updatedAt=new Date().toISOString();persist();render();toast(changes?`Sipariş kaydedildi (${changes} satır).`:'Sipariş zaten kayıtlı.')}
+function saveOrder(){let o=getOrder();if(!o||!o.items.length){toast('Kaydedilecek ürün bulunamadı.','error');return}let changes=o.items.filter(x=>x.status==='Yeni').length;o.items.forEach(x=>{if(x.status==='Yeni')x.status='Hazırlanıyor'});o.status='Hazırlanıyor';o.updatedAt=new Date().toISOString();persist();ui.tableId=null;ui.mobileOrderTab='products';navigate('home');toast(changes?`Sipariş kaydedildi (${changes} satır). Masalara dönüldü.`:'Sipariş kayıtlı. Masalara dönüldü.')}
 function settleOrder(o){o.closedAt=new Date().toISOString();o.status='Ödendi';st.history.unshift(clone(o));delete st.orders[o.tableId];persist()}
-function processPayment(amount,method){let o=getOrder();if(!o||!o.items.length){toast('Ödeme alınacak sipariş bulunamadı.','error');return}amount=Math.round(Number(amount)*100)/100;if(!Number.isFinite(amount)||amount<=0||amount>orderDue(o)+.005){toast('Geçerli bir tahsilat tutarı girin.','error');return}o.items.forEach(i=>{if(i.status==='Yeni')i.status='Hazırlanıyor'});o.payments.push({id:uid('pay'),amount,method,date:new Date().toISOString(),operator:st.settings.operator});let closed=orderDue(o)<.01;if(closed)settleOrder(o);else persist();ui.modal=null;render();toast(closed?'Ödeme tamamlandı. Masa kapatıldı.':`${fmt(amount)} tahsil edildi. Kalan: ${fmt(orderDue(o))}`);if(closed){ui.route='home';ui.tableId=null;render()}}
+function processPayment(amount,method,received=null){let o=getOrder();if(!o||!o.items.length){toast('Ödeme alınacak sipariş bulunamadı.','error');return}amount=Math.round(Number(amount)*100)/100;if(!Number.isFinite(amount)||amount<=0||amount>orderDue(o)+.005){toast('Geçerli bir tahsilat tutarı girin.','error');return}o.items.forEach(i=>{if(i.status==='Yeni')i.status='Hazırlanıyor'});o.payments.push({id:uid('pay'),amount,method,date:new Date().toISOString(),operator:st.settings.operator,...(method==='Nakit'&&Number.isFinite(received)&&received>=amount?{received,change:Math.round((received-amount)*100)/100}:{})});let closed=orderDue(o)<.01;if(closed)settleOrder(o);else persist();ui.modal=null;if(!closed&&ui.route==='payment'){ui.payAmount=String(orderDue(o));ui.payKeyFresh=true}render();toast(closed?'Ödeme tamamlandı. Masa kapatıldı.':`${fmt(amount)} tahsil edildi. Kalan: ${fmt(orderDue(o))}`);if(closed){ui.route='home';ui.tableId=null;render()}}
 function quickPay(){const o=getOrder();if(!o||!o.items.length){toast('Masa boş.','error');return}let due=orderDue(o);if(due<=0)return;openModal('quickPay')}
 function getReportOrders(){return st.history.filter(o=>{const day=dateKey(o.closedAt||o.createdAt);return day>=ui.reportFrom&&day<=ui.reportTo})}
 function reportRows(){const orders=getReportOrders(),map=new Map();let rkey=ui.reportTab;for(const o of orders){const sub=orderSub(o),discount=discountValue(o);for(const i of o.items){let p=st.products.find(p=>p.id===i.productId);let name=rkey==='category'?(st.categories.find(c=>c.id===i.categoryId)?.name||'Silinen kategori'):rkey==='zone'?(o.label||getTableName(o.tableId)):rkey==='menu'?(o.type||'Masa'):rkey==='feature'?((i.note||'Özellik yok')):i.name;let itemSub=i.qty*i.price,itemDiscount=sub?discount*itemSub/sub:0;let a=map.get(name)||{name,qty:0,discount:0,total:0};a.qty+=i.qty;a.discount+=itemDiscount;a.total+=itemSub-itemDiscount;map.set(name,a)}}let rows=[...map.values()].sort((a,b)=>b.total-a.total);return rows.filter(r=>r.name.toLocaleLowerCase('tr').includes(ui.reportText.toLocaleLowerCase('tr')))}
-function hTop(){return `<header class="titlebar"><b>◈ Adio <span style="font-weight:400;opacity:.82">/ Adisyon</span></b><span>● Cihazda kayıtlı</span></header><div class="topline"><div class="logo-brand">${ic('coffee')} Adio</div><span class="utility">${ic('info')} Duyurular</span><span class="utility">${ic('person')} ${esc(st.settings.operator)}</span></div>`}
+function hTop(){return `<header class="titlebar"><b>◈ Adio <span style="font-weight:400;opacity:.82">/ Adisyon</span><span class="brand-credit-top">Hakan Aytaş CodeBug Şirketi</span></b><span>● Cihazda kayıtlı</span></header><div class="topline"><div class="logo-brand">${ic('coffee')} Adio</div><span class="utility">${ic('info')} Duyurular</span><span class="utility">${ic('person')} ${esc(st.settings.operator)}</span><span class="app-credit">Hakan Aytaş CodeBug Şirketi</span></div>`}
 function sideRail(){return `<nav class="left-rail"><button class="rail-btn menu-first" data-act="drawer">${ic('menu')}<span>Menü</span></button><button class="rail-btn" data-act="new-special" data-type="take">${ic('bag')}<span>Gel Al</span></button><button class="rail-btn" data-act="new-special" data-type="delivery">${ic('truck')}<span>Paket</span></button></nav>`}
 function home(){return `<section class="home"><div class="home-head"><div class="home-heading"><span class="eyebrow">ADIO · MASA YÖNETİMİ</span><h2>Masalar <span class="table-count">${st.tables.length}</span></h2></div><div class="toolbar-right"><span class="live-pill"><i></i>${st.tables.filter(t=>st.orders[t.id]?.items.length).length} dolu masa</span><button title="Yeni masa ekle" class="btn-icon" data-act="new-table">${ic('plus')}</button><button title="Yenile" class="btn-icon" data-act="refresh">${ic('refresh')}</button><button title="Ayarlar" class="btn-icon" data-act="goto" data-route="settings">${ic('settings')}</button></div></div>${regionView()}</section>`}
 function regionView(){const tables=st.tables;return `<div class="tables-subhead"><span>${ic('grid')} Tüm Masalar</span><span class="muted">${tables.length-st.tables.filter(t=>st.orders[t.id]?.items.length).length} boş · ${st.tables.filter(t=>st.orders[t.id]?.items.length).length} dolu</span></div><div class="table-scroll"><div class="table-grid">${tables.map(t=>{let o=st.orders[t.id],busy=o?.items.length;return `<button class="table-card ${busy?'busy':''}" data-act="enter" data-id="${esc(t.id)}"><span class="table-status-dot"></span><span class="tbl-name">${esc(t.name)}</span>${busy?`<span class="tbl-customer">${esc(o.guest||'Açık adisyon')}${o.guestCount>1?' · '+o.guestCount+' kişi':''}</span><span class="tbl-total">${fmt(orderTotal(o))}</span><span class="tbl-time">${Math.max(0,Math.floor((Date.now()-new Date(o.createdAt))/60000))} dk · ${esc(o.status)}</span>${orderPaid(o)>0?`<span class="tbl-due">Kalan ${fmt(orderDue(o))}</span>`:''}`:`<span class="free-label">Boş masa</span>`}</button>`}).join('')}</div></div><div class="home-footnote">Adio · Veriler bu cihazdaki tarayıcıda saklanır. Yedek almak için Ayarlar'ı kullanın.</div>`}
 function homeOrdersView(){const active=Object.values(st.orders).filter(o=>o.items.length).sort((a,b)=>new Date(a.createdAt)-new Date(b.createdAt));return `<div class="zone-head"><h3>Açık Siparişler (${active.length})</h3><button class="pill-btn" data-act="goto" data-route="orders">${ic('orders')} Tüm siparişler</button></div><div class="table-scroll">${active.length?`<div class="table-grid">${active.map(o=>`<button class="table-card busy" data-act="enter" data-id="${esc(o.tableId)}"><span class="tbl-name">${esc(getTableName(o.tableId))}</span><span class="tbl-customer">${esc(o.guest||o.type)}</span><span class="tbl-total">${fmt(orderTotal(o))}</span><span class="tbl-time">${time(o.createdAt)} · ${esc(o.status)}</span></button>`).join('')}</div>`:empty('orders','Açık sipariş yok','Yeni sipariş eklemek için bir masa seçin.')}</div>`}
 function renderOrder(){const o=getOrder(),t=getTable(ui.tableId),name=getTableName(ui.tableId),visible=st.products.filter(p=>p.active&&(ui.search? p.name.toLocaleLowerCase('tr').includes(ui.search.toLocaleLowerCase('tr')):p.categoryId===ui.category));let mobileClass='mobile-'+(ui.mobileOrderTab==='check'?'check':'products');return `<section class="order-screen"><div class="order-top"><button class="order-action" data-act="goto" data-route="home" title="Masalara dön">${ic('back')}</button><div class="order-title"><span>${esc(name)}</span><button class="order-action" style="flex:0 0 26px;background:transparent;border:0" data-act="guest" title="Adisyon bilgileri">${ic('edit')}</button></div><button class="order-action" data-act="guest" title="Müşteri bilgisi">${ic('plus')}</button><button class="order-action" data-act="print" title="Fiş yazdır">${ic('print')}</button><div class="order-search"><input id="productSearch" placeholder="Ürün Adı veya Barkod ile Arama" value="${esc(ui.search)}" autocomplete="off"></div><div class="order-top-right"><button class="order-action" data-act="guest" title="Kişi sayısı">${ic('users')}</button><button class="order-action" data-act="info" title="Sipariş bilgisi">${ic('clipboard')}</button><button class="order-action" data-act="goto" data-route="home" title="Geri">${ic('back')}</button></div></div><div class="mobile-switch"><button data-act="mobile-tab" data-tab="products" class="${ui.mobileOrderTab==='products'?'active':''}">Ürünler</button><button data-act="mobile-tab" data-tab="check" class="${ui.mobileOrderTab==='check'?'active':''}">Adisyon · ${o?.items.reduce((a,i)=>a+i.qty,0)||0}</button></div><div class="order-body ${mobileClass}"><div class="check-panel"><div class="check-info"><span>Adisyon: <b>${esc(o?.id||'Yeni sipariş')}</b></span><span>Sipariş Durumu: <b class="status-green">${esc(o?.status||'Yeni')}</b></span></div><div class="line-items">${o?.items.length?o.items.map(i=>`<div class="check-line"><span class="check-qty">${i.qty}</span><div><div class="check-label">${esc(i.name)}</div><div class="check-sub">adet<br>${esc(i.status.toLowerCase())}${i.note?` · ${esc(i.note)}`:''}</div></div><span class="check-price">${fmt(i.qty*i.price)}</span><button class="check-options" data-act="line-menu" data-id="${esc(i.id)}" title="Ürün işlemleri">${ic('dots')}</button></div>`).join(''):empty('receipt','Henüz ürün yok','Sağdaki menüden ürün seçebilirsiniz.')}</div><div class="check-bottom">${orderPaid(o)>0?`<div class="check-paid"><span>Ödenen</span><b class="price-positive">${fmt(orderPaid(o))}</b></div><div class="check-paid"><span>Kalan</span><b>${fmt(orderDue(o))}</b></div>`:''}${discountValue(o)>0?`<div class="check-paid"><span>İndirim</span><b class="price-negative">−${fmt(discountValue(o))}</b></div>`:''}<div class="check-summary"><span>Toplam Tutar</span><b>${fmt(orderTotal(o))}</b></div><div class="check-actions"><button class="action-btn secondary" title="İndirim" data-act="discount">${ic('tag')}</button><button class="action-btn success" data-act="pay">ÖDE ${fmt(orderDue(o))}</button><button class="action-btn secondary" data-act="quick-pay">⚡ HIZLI ÖDE</button><button class="action-btn primary" data-act="save">KAYDET</button></div></div></div><div class="catalog"><div class="cat-grid">${ui.search?`<button class="active" style="grid-column:1/-1">Arama sonuçları (${visible.length})</button>`:st.categories.map(c=>`<button class="${ui.category===c.id?'active':''}" data-act="category" data-id="${esc(c.id)}">${esc(c.name)}</button>`).join('')}</div><div class="catalog-content">${visible.length?`<div class="prod-grid">${visible.map(p=>{let q=qtyOf(p.id);return `<div class="product-card ${q?'has-qty':''}" role="group"><button style="position:absolute;inset:0;background:none;border:0;z-index:0" data-act="add" data-id="${esc(p.id)}" aria-label="${esc(p.name)} ekle"></button><span class="name" style="position:relative;pointer-events:none">${esc(p.name)}</span><span class="price" style="position:relative;pointer-events:none">${fmt(p.price)}</span>${q?`<div class="quick-qty" style="z-index:1"><button data-act="inc" data-id="${esc(p.id)}">+</button><strong>${q}</strong><button data-act="dec" data-id="${esc(p.id)}">−</button></div>`:''}</div>`}).join('')}</div>`:empty('search','Ürün bulunamadı','Başka kategori veya arama deneyin.')}</div><button class="mobile-check-shortcut" data-act="mobile-tab" data-tab="check">${ic('clipboard')} <span>Adisyonu Gör <small>${o?.items.reduce((a,i)=>a+i.qty,0)||0} ürün</small></span> <b>${fmt(orderDue(o))}</b> ${ic('arrow')}</button></div></div></section>`}
+function paymentPage(){
+  const o=getOrder();
+  if(!o||!o.items?.length)return `<section class="payment-screen"><div class="payment-head"><button class="payment-back" data-act="payment-back">${ic('back')} Adisyona dön</button><h2>Ödeme Al</h2></div>${empty('wallet','Ödeme alınacak ürün bulunamadı','Önce masaya ürün ekleyin.')}</section>`;
+  const due=orderDue(o),selected=ui.payMethod||'Nakit';
+  let initial=ui.payAmount===''?String(due):ui.payAmount;
+  const methods=[['Nakit','Nakit','wallet'],['Kredi Kartı','Kredi Kartı','tag'],['Havale / EFT','Havale / EFT','receipt'],['Diğer','Diğer','grid']];
+  return `<section class="payment-screen">
+    <header class="payment-head"><button class="payment-back" data-act="payment-back" aria-label="Adisyona geri dön">${ic('back')} <span>Adisyona Dön</span></button><div><div class="payment-eyebrow">ADIO · TAHSİLAT</div><h2>Ödeme Al <span>${esc(o.label||getTableName(ui.tableId))}</span></h2></div><div class="payment-order-no">${ic('receipt')} ${esc(o.id)}</div></header>
+    <div class="payment-body">
+      <aside class="payment-receipt"><div class="payment-card-caption">${ic('clipboard')} Adisyon Özeti</div>
+        <div class="payment-bill-head"><b>${esc(o.label||getTableName(ui.tableId))}</b><span>${o.items.reduce((n,i)=>n+i.qty,0)} ürün</span></div>
+        <div class="payment-bill-lines">${o.items.map(i=>`<div class="payment-bill-line"><div><strong>${esc(i.qty)} × ${esc(i.name)}</strong><small>${esc(i.note||i.status||'')}</small></div><b>${fmt(i.price*i.qty)}</b></div>`).join('')}</div>
+        <div class="payment-bill-totals"><div><span>Ara toplam</span><b>${fmt(orderSub(o))}</b></div>${discountValue(o)>0?`<div><span>İndirim</span><b>−${fmt(discountValue(o))}</b></div>`:''}<div><span>Adisyon Toplamı</span><b>${fmt(orderTotal(o))}</b></div><div><span>Önceden ödenen</span><b>${fmt(orderPaid(o))}</b></div><div class="payment-bill-due"><span>Kalan tutar</span><b>${fmt(due)}</b></div></div>
+        <button type="button" class="payment-link" data-act="pay-by-items">${ic('users')} Ürünlere Göre Hesap Böl ${ic('arrow')}</button>
+      </aside>
+      <div class="payment-work"><div class="payment-card-caption">${ic('wallet')} Tahsilat İşlemi</div>
+        <div class="payment-remain"><span>ÖDENECEK KALAN TUTAR</span><strong>${fmt(due)}</strong><small>İsterseniz kısmi ödeme alabilirsiniz.</small></div>
+        <form id="payForm" class="payment-form">
+          <div class="payment-form-label"><label for="payAmount">Tahsil edilecek tutar</label><span>₺ · Türk Lirası</span></div>
+          <div class="payment-money-field"><span>₺</span><input id="payAmount" name="amount" inputmode="decimal" type="number" min="0.01" step="0.01" max="${due}" value="${esc(initial)}" required aria-label="Tahsil edilecek tutar"></div>
+          <div class="payment-presets"><button type="button" data-act="pay-preset" data-value="${due}">Tamamı</button><button type="button" data-act="pay-preset" data-value="${(due/2).toFixed(2)}">Yarısı</button><button type="button" data-act="pay-preset" data-value="${(due/3).toFixed(2)}">1/3</button><button type="button" data-act="pay-by-items">${ic('users','mini')} Ürüne Göre</button></div>
+          <div class="payment-form-label payment-method-label"><span>Ödeme yöntemi</span></div>
+          <input type="hidden" id="payMethod" name="method" value="${esc(selected)}">
+          <div class="payment-methods">${methods.map(([v,label,icon])=>`<button type="button" class="payment-method ${selected===v?'selected':''}" data-act="pay-method" data-method="${esc(v)}">${ic(icon)}<span>${esc(label)}</span>${selected===v?ic('checkCircle','mini'):''}</button>`).join('')}</div>
+          <div class="payment-bottom-grid">
+            <div class="payment-keypad" aria-label="Tutar tuş takımı">${['1','2','3','4','5','6','7','8','9','C','0','.','⌫'].map(key=>`<button type="button" class="payment-key ${key==='C'||key==='⌫'?'utility-key':''}" data-act="pay-key" data-key="${esc(key)}">${key}</button>`).join('')}</div>
+            <div class="payment-cash-area"><div class="payment-tender ${selected==='Nakit'?'':'hide'}" id="payTenderBox"><label for="payTender">Alınan nakit (isteğe bağlı)</label><input id="payTender" name="received" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Müşterinin verdiği tutar"><div class="payment-change"><span>Para üstü</span><b id="paymentChange">${fmt(0)}</b></div></div><div class="payment-to-collect"><span>Bu işlemde alınacak</span><b id="paymentPreview">${fmt(Number(initial)||0)}</b></div><div class="payment-security">${ic('info')} Onaylanan tahsilat adisyona işlenir. Hesap tamamen ödenirse masa kapanır.</div></div>
+          </div>
+          <div class="payment-footer"><button type="button" class="payment-cancel" data-act="payment-back">Vazgeç</button><button type="submit" class="payment-confirm">${ic('check')} <span id="paymentConfirmLabel">${fmt(Number(initial)||0)} Tahsil Et</span></button></div>
+        </form>
+      </div>
+    </div>
+  </section>`;
+}
+function updatePaymentPreview(){
+  const amount=document.getElementById('payAmount');if(!amount)return;
+  const n=Number(amount.value)||0;ui.payAmount=amount.value;
+  const preview=document.getElementById('paymentPreview'),label=document.getElementById('paymentConfirmLabel');
+  if(preview)preview.textContent=fmt(n);
+  if(label)label.textContent=fmt(n)+' Tahsil Et';
+  const tender=document.getElementById('payTender'),change=document.getElementById('paymentChange');
+  if(change)change.textContent=fmt(Math.max(0,(Number(tender?.value)||0)-n));
+}
+function changePaymentMethod(method){
+  ui.payMethod=method;
+  const hidden=document.getElementById('payMethod');if(hidden)hidden.value=method;
+  for(const button of document.querySelectorAll('.payment-method')){
+    const active=button.dataset.method===method;button.classList.toggle('selected',active);
+    const check=button.querySelector('.method-check');if(check)check.remove();
+    if(active){const mark=document.createElement('span');mark.className='method-check';mark.textContent='✓';button.appendChild(mark)}
+  }
+  const cash=document.getElementById('payTenderBox');if(cash)cash.classList.toggle('hide',method!=='Nakit');
+  updatePaymentPreview();
+}
+function applyPayKey(key){
+  const inp=document.getElementById('payAmount');if(!inp)return;
+  let val=String(inp.value||'');
+  if(key==='C'){val='';ui.payKeyFresh=true}
+  else if(key==='⌫'){val=ui.payKeyFresh?'':val.slice(0,-1);ui.payKeyFresh=false}
+  else if(key==='.') {if(ui.payKeyFresh){val='0';ui.payKeyFresh=false}if(!val.includes('.'))val+='.'}
+  else if(/^\d$/.test(key)){if(ui.payKeyFresh){val='';ui.payKeyFresh=false}val+=key}
+  inp.value=val;updatePaymentPreview();inp.focus();
+}
 function header(title,actions=''){return `<div class="page-head"><h2><button class="small-btn" data-act="drawer" title="Menü">${ic('menu')}</button>${esc(title)}</h2><div class="page-actions">${actions}</div></div>`}
 function empty(icon,title,caption){return `<div class="empty">${ic(icon)}<b>${esc(title)}</b><div>${esc(caption)}</div></div>`}
 function page(title,body,actions=''){return `<section class="page-screen">${header(title,actions)}<div class="page-main">${body}</div></section>`}
@@ -234,12 +507,12 @@ function settingsPage(){return page('Ayarlar',`<form id="settingsForm" class="se
 function usersPage(){return page('Kullanıcılar',`<div class="note">Bu tek dosyalık sürümde personel isimleri kayıt ve raporlama içindir. Şifreli giriş, izin yönetimi ve cihazlar arası eşzamanlama için sunucu gerekir.</div><h3 class="block-title">Tanımlı personeller</h3><div class="table-wrap"><table class="data-table"><thead><tr><th>Personel</th><th>Durum</th><th>İşlemler</th></tr></thead><tbody>${st.operators.map(p=>`<tr><td>${esc(p)}</td><td><span class="badge ${st.settings.operator===p?'green':''}">${st.settings.operator===p?'Aktif':'Personel'}</span></td><td><button data-act="switch-user" data-name="${esc(p)}">Aktif yap</button> <button data-act="delete-user" data-name="${esc(p)}">Sil</button></td></tr>`).join('')}</tbody></table></div>`,`<button class="small-btn filled" data-act="add-user">${ic('plus')} Personel Ekle</button>`)}
 function printersPage(){return page('Yazıcılar',`<div class="settings-box"><h3>Fiş Yazdırma</h3><p>Adisyon ekranındaki ${ic('print')} simgesiyle o adisyonun fişini yazdırabilir, ödenen adisyonun fişini Siparişler menüsünden açabilirsiniz.</p><p class="muted">Yazdırma bilgisayarın veya telefonun tarayıcı yazdır penceresini kullanır. 80 mm termal fiş düzenine uygun hazırlanmıştır; yazıcı sürücüsü veya ağ yazıcısına doğrudan bağlantı içermez.</p><button class="small-btn filled" data-act="print-test">${ic('print')} Test Fişi Yazdır</button></div>`)}
 function digitalPage(){return page('Dijital Menü',`<div class="note">Bu menü, tanımlanan ürünlerin salt okunur görünümüdür. Müşteri bağlantısı veya QR kodu yayımlamak için ayrı bir sunucu gerekir.</div>${st.categories.map(c=>{let products=st.products.filter(p=>p.categoryId===c.id&&p.active);return products.length?`<h3 class="block-title">${esc(c.name)}</h3><div class="table-wrap"><table class="data-table">${products.map(p=>`<tr><td>${esc(p.name)}</td><td style="text-align:right">${fmt(p.price)}</td></tr>`).join('')}</table></div>`:''}).join('')}`)}
-function renderPage(){switch(ui.route){case'home':return home();case'order':return renderOrder();case'reports':return reports();case'orders':return ordersPage();case'products':return productsPage();case'categories':return categoriesPage();case'tables':return tablesPage();case'payments':return paymentsPage();case'settings':return settingsPage();case'users':return usersPage();case'printers':return printersPage();case'digital':return digitalPage();default:return home()}}
+function renderPage(){switch(ui.route){case'home':return home();case'order':return renderOrder();case'payment':return paymentPage();case'reports':return reports();case'orders':return ordersPage();case'products':return productsPage();case'categories':return categoriesPage();case'tables':return tablesPage();case'payments':return paymentsPage();case'settings':return settingsPage();case'users':return usersPage();case'printers':return printersPage();case'digital':return digitalPage();default:return home()}}
 const navGroups=[['Ana Sayfa','home','house'],['Entegrasyon İşlemleri','integrations','grid'],['Dijital Menü','digital','coffee'],['Tanımlamalar','definitions','clipboard'],['Sipariş','orders','orders'],['İşlemler','operations','wallet'],['Kullanıcılar','users','users'],['Raporlar','reports','chart'],['Yazıcılar','printers','print']];
 function drawerView(){const sub=(entries)=>entries.map(x=>`<button class="drawer-item drawer-sub" data-act="goto" data-route="${x[1]}">${esc(x[0])}</button>`).join('');return `<div class="drawer-shade" id="drawerShade"><aside class="drawer" role="navigation"><div class="drawer-head"><div><div class="drawer-brand">${ic('coffee')} Adio <span class="muted sm">1.0</span></div><div class="drawer-company">${esc(st.settings.business)}</div></div><button class="xbtn" data-act="drawer-close">${ic('close')}</button></div><div class="drawer-list">${navGroups.map(n=>`${n[1]==='integrations'?`<button class="drawer-item" data-act="unsupported" data-name="Entegrasyon İşlemleri">${ic(n[2])} ${n[0]}</button>`:n[1]==='definitions'?`<button class="drawer-item" data-act="goto" data-route="products">${ic(n[2])} Tanımlamalar ${ic('arrow','mini')}</button>${sub([['Ürünler','products'],['Kategoriler','categories'],['Masalar','tables']])}`:n[1]==='operations'?`<button class="drawer-item" data-act="goto" data-route="payments">${ic(n[2])} İşlemler ${ic('arrow','mini')}</button>${sub([['Tahsilat Hareketleri','payments'],['Veri Yedekleme','settings']])}`:`<button class="drawer-item ${ui.route===n[1]?'selected':''}" data-act="goto" data-route="${n[1]}">${ic(n[2])} ${n[0]}</button>`}`).join('')}</div><div class="drawer-bottom"><b>Adio · Çevrimdışı</b><p>Çalışma: Çevrimdışı · Kayıt: Bu tarayıcı</p><button class="small-btn" data-act="goto" data-route="settings">${ic('settings')} Ayarlar</button></div></aside></div>`}
-function setupView(){const step=ui.setupStep||0;const names=['Hoş geldiniz','İşletme kurulumu'];return `<div class="setup-shell"><div class="setup-glow"></div><div class="setup-top"><div class="setup-logo"><span class="setup-mark">A</span> Adio</div><span class="setup-top-label">İLK KURULUM <strong>0${step+1} / 02</strong></span></div><div class="setup-center"><div class="setup-card"><div class="setup-progress"><span class="${step>=0?'on':''}"></span><span class="${step>=1?'on':''}"></span></div>${step===0?`<div class="setup-symbol">${ic('coffee')}</div><div class="setup-kicker">ADIO ADİSYON SİSTEMİ</div><h1>İşletmenizin yeni<br><em>başlangıç noktası.</em></h1><p class="setup-lead">Masalar, siparişler ve ödemeler tek yerde. İşletmenizi bir kez kurun; sonraki açılışlarda doğrudan masa ekranınıza geçin.</p><div class="setup-feature-grid"><div>${ic('table')} Masa yönetimi</div><div>${ic('orders')} Sipariş takibi</div><div>${ic('wallet')} Ödeme & rapor</div><div>${ic('lock')} Cihazda kayıt</div></div><button class="setup-primary" data-act="setup-start">Kuruluma Başla ${ic('arrow')}</button>`:`<div class="setup-kicker">SON ADIM · SİZE ÖZEL</div><h1>Adio'yu <em>hazırlayalım.</em></h1><p class="setup-lead">Bu bilgileri bir defa girmeniz yeterli. Daha sonra Ayarlar bölümünden işletme adını ve masaları değiştirebilirsiniz.</p><form id="setupForm" class="setup-form"><label>İşletme adı<input name="business" required maxlength="70" placeholder="Örn. Rammy Coffee" value="${esc(st.settings.business||'')}"></label><label>Personel / kasa adı<input name="operator" required maxlength="70" placeholder="Örn. Kasiyer" value="${esc(st.settings.operator||'Kasiyer')}"></label><label>Masa sayısı<input name="tableCount" type="number" min="1" max="200" required value="${st.tables.length}"></label><div class="setup-hint">${ic('info')} Kurulum bu tarayıcıda saklanır. Aynı işletmeyi başka cihazlarda kullanacaksanız verileri JSON yedeğiyle taşıyabilirsiniz.</div><div class="setup-buttons"><button type="button" class="setup-secondary" data-act="setup-back">${ic('back')} Geri</button><button type="submit" class="setup-primary">Adio'yu Aç ${ic('check')}</button></div></form>`}</div><div class="setup-footer">Adio <span>·</span> İşletmenizin kontrolü elinizde.</div></div></div>`}
+function setupView(){const step=ui.setupStep||0;const names=['Hoş geldiniz','İşletme kurulumu'];return `<div class="setup-shell"><div class="setup-glow"></div><div class="setup-top"><div class="setup-logo"><span class="setup-mark">A</span> Adio</div><span class="setup-top-label">İLK KURULUM <strong>0${step+1} / 02</strong></span></div><div class="setup-center"><div class="setup-card"><div class="setup-progress"><span class="${step>=0?'on':''}"></span><span class="${step>=1?'on':''}"></span></div>${step===0?`<div class="setup-symbol">${ic('coffee')}</div><div class="setup-kicker">ADIO ADİSYON SİSTEMİ</div><h1>İşletmenizin yeni<br><em>başlangıç noktası.</em></h1><p class="setup-lead">Masalar, siparişler ve ödemeler tek yerde. İşletmenizi bir kez kurun; sonraki açılışlarda doğrudan masa ekranınıza geçin.</p><div class="setup-feature-grid"><div>${ic('table')} Masa yönetimi</div><div>${ic('orders')} Sipariş takibi</div><div>${ic('wallet')} Ödeme & rapor</div><div>${ic('lock')} Cihazda kayıt</div></div><button class="setup-primary" data-act="setup-start">Kuruluma Başla ${ic('arrow')}</button>`:`<div class="setup-kicker">SON ADIM · SİZE ÖZEL</div><h1>Adio'yu <em>hazırlayalım.</em></h1><p class="setup-lead">Bu bilgileri bir defa girmeniz yeterli. Daha sonra Ayarlar bölümünden işletme adını ve masaları değiştirebilirsiniz.</p><form id="setupForm" class="setup-form"><label>İşletme adı<input name="business" required maxlength="70" placeholder="Örn. Rammy Coffee" value="${esc(st.settings.business||'')}"></label><label>Personel / kasa adı<input name="operator" required maxlength="70" placeholder="Örn. Kasiyer" value="${esc(st.settings.operator||'Kasiyer')}"></label><label>Masa sayısı<input name="tableCount" type="number" min="1" max="200" required value="${st.tables.length}"></label><div class="setup-hint">${ic('info')} Kurulum bu tarayıcıda saklanır. Aynı işletmeyi başka cihazlarda kullanacaksanız verileri JSON yedeğiyle taşıyabilirsiniz.</div><div class="setup-buttons"><button type="button" class="setup-secondary" data-act="setup-back">${ic('back')} Geri</button><button type="submit" class="setup-primary">Adio'yu Aç ${ic('check')}</button></div></form>`}</div><div class="setup-footer">Adio <span>·</span> Hakan Aytaş CodeBug Şirketi</div></div></div>`}
 function finishSetup(form){const fd=new FormData(form);let business=String(fd.get('business')||'').trim(),operator=String(fd.get('operator')||'').trim(),count=Number(fd.get('tableCount'));if(!business||!operator||!Number.isInteger(count)||count<1||count>200){toast('İşletme adı, personel ve 1–200 arası masa sayısı girin.','error');return}const ordered=st.tables.slice();if(ordered.slice(count).some(t=>st.orders[t.id]?.items?.length)){toast('Açık adisyonu bulunan masalar korunmalı. Daha yüksek masa sayısı seçin.','error');return}st.tables=ordered.slice(0,count);while(st.tables.length<count){let n=st.tables.length+1;st.tables.push({id:uid('table'),zoneId:'z1',name:'Masa '+n})}st.zones=[{id:'z1',name:'Salon'}];st.tables.forEach((t,i)=>{t.zoneId='z1';if(/^Masa \d+$/i.test(t.name)){t.name='Masa '+(i+1);if(st.orders[t.id])st.orders[t.id].label=t.name}});st.settings.business=business;st.settings.operator=operator;st.settings.setupDone=true;st.operators=st.operators||[];if(!st.operators.includes(operator))st.operators.unshift(operator);ui.route='home';ui.zone='z1';persist();render();toast('Adio hazır! Hoş geldiniz.')}
-function render(){document.title=(ui.route==='order'?getTableName(ui.tableId)+' - ':'')+'Adio · Adisyon';if(!st.settings?.setupDone){document.getElementById('app').innerHTML=setupView();document.getElementById('overlays').innerHTML='';return}document.getElementById('app').innerHTML=hTop()+`<div class="app-area">${ui.route==='home'?sideRail():''}<main class="main-area">${renderPage()}</main></div>`;document.getElementById('overlays').innerHTML=(ui.drawer?drawerView():'')+(ui.modal?modalView():'');}
+function render(){document.title=(ui.route==='order'?getTableName(ui.tableId)+' - ':'')+'Adio · Hakan Aytaş CodeBug Şirketi';if(!st.settings?.setupDone){document.getElementById('app').innerHTML=setupView();document.getElementById('overlays').innerHTML='';return}document.getElementById('app').innerHTML=hTop()+`<div class="app-area">${ui.route==='home'?sideRail():''}<main class="main-area">${renderPage()}</main></div>`;document.getElementById('overlays').innerHTML=(ui.drawer?drawerView():'')+(ui.modal?modalView():'');}
 function openModal(type,data={}){ui.drawer=false;ui.modal={type,...data};render()}
 function closeModal(){ui.modal=null;render()}
 function formField(label,name,value='',type='text',attrs=''){return `<div class="field"><label>${esc(label)}</label><input type="${type}" name="${esc(name)}" value="${esc(value)}" ${attrs}></div>`}
@@ -267,10 +540,33 @@ default:return ''}}
 function downloadText(filename,txt,type='application/json;charset=utf-8'){const blob=new Blob([txt],{type});const a=document.createElement('a');let url=URL.createObjectURL(blob);a.href=url;a.download=filename;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2000)}
 function backup(){downloadText('adio_yedek_'+dateKey(new Date())+'.json',JSON.stringify(st,null,2));toast('Yedek dosyası hazırlandı.')}
 function exportCSV(){let rows=reportRows(),total=rows.reduce((a,x)=>a+x.total,0);let records=[['Kategori/Masa/Ürün','Miktar','İndirim TL','Tutar TL','Oran yüzde'],...rows.map(r=>[r.name,r.qty,r.discount.toFixed(2),r.total.toFixed(2),total?(100*r.total/total).toFixed(2):'0'])];let csv='\ufeff'+records.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(';')).join('\r\n');downloadText('satis_raporu_'+ui.reportFrom+'_'+ui.reportTo+'.csv',csv,'text/csv;charset=utf-8');toast('CSV raporu indirildi.')}
-function renderReceipt(o,test=false){let sum=orderSub(o),disc=discountValue(o);return `<h2>${esc(st.settings.business)}</h2><p class="center">ADİSYON / ${test?'TEST FİŞİ':'BİLGİ FİŞİ'}</p><hr><p>No: ${esc(o.id)}<br>Masa: ${esc(o.label)}<br>Tarih: ${dateTime(o.closedAt||Date.now())}<br>Personel: ${esc(o.operator||st.settings.operator)}</p><hr><table><thead><tr><th>ÜRÜN</th><th class="right">TUTAR</th></tr></thead><tbody>${o.items.map(i=>`<tr><td>${esc(i.qty+' × '+i.name)}<div>${fmt(i.price)}</div></td><td class="right">${fmt(i.qty*i.price)}</td></tr>`).join('')}</tbody></table><p style="text-align:right">Ara toplam: ${fmt(sum)}<br>İndirim: -${fmt(disc)}<br><b>TOPLAM: ${fmt(orderTotal(o))}</b><br>Ödenen: ${fmt(orderPaid(o))}<br>Kalan: ${fmt(orderDue(o))}</p><hr><p>${(o.payments||[]).map(x=>esc(x.method)+' '+fmt(x.amount)).join('<br>')}</p><p class="center">Teşekkür ederiz.</p>`}
-function printOrder(o){if(!o){toast('Yazdırılacak adisyon yok.','error');return}document.getElementById('printArea').innerHTML=renderReceipt(o);window.print()}
-window.addEventListener('afterprint',()=>{document.getElementById('printArea').innerHTML=''});
-function printReport(){const rows=reportRows();let html=`<h2>${esc(st.settings.business)}</h2><h3 class="center">SATIŞ RAPORU</h3><p>${esc(ui.reportFrom)} / ${esc(ui.reportTo)}</p><table><thead><tr><th>Ad</th><th>Adet</th><th class="right">Tutar</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${esc(r.name)}</td><td>${r.qty}</td><td class="right">${fmt(r.total)}</td></tr>`).join('')}</tbody></table><h3 class="right">Toplam: ${fmt(rows.reduce((a,r)=>a+r.total,0))}</h3>`;document.getElementById('printArea').innerHTML=html;window.print()}
+function renderReceipt(o,test=false){
+ const items=(o.items||[]).filter(i=>Number(i.qty)>0);
+ const sum=orderSub(o),disc=discountValue(o),paid=orderPaid(o),due=orderDue(o);
+ const row=(label,value,kind='')=>`<div class="r-total-row ${kind}"><span>${label}</span><b>${value}</b></div>`;
+ const when=o.closedAt||o.createdAt||Date.now();
+ return `<div class="r-brand">${esc(st.settings.business)}</div><div class="r-title">${test?'TEST FİŞİ':'ADİSYON FİŞİ'}</div>
+ <div class="r-meta"><span>Masa: ${esc(o.label||'—')}</span><span>${dateTime(when)}</span><span>Fiş: ${esc(o.id||'—')}</span><span>${esc(o.operator||st.settings.operator)}</span></div>
+ <hr class="r-rule"><table class="r-items"><thead><tr><th>Adet</th><th>Ürün</th><th>Tutar</th></tr></thead><tbody>${items.map(i=>`<tr><td>${Number(i.qty)}</td><td>${esc(i.name)}</td><td>${fmt(Number(i.qty)*Number(i.price))}</td></tr>`).join('')}</tbody></table><hr class="r-rule">
+ ${disc>0?row('Ara toplam',fmt(sum))+row('İndirim','−'+fmt(disc)):''}${row('TOPLAM',fmt(orderTotal(o)),'grand')}${paid>0?row('Ödenen',fmt(paid)):''}${due>0&&paid>0?row('Kalan',fmt(due)):''}
+ <div class="r-footer">Teşekkür ederiz.</div><div class="r-owner">Hakan Aytaş CodeBug Şirketi</div>`;
+}
+function printOrder(o){
+ if(!o){toast('Yazdırılacak adisyon yok.','error');return}
+ const area=document.getElementById('printArea');
+ area.classList.remove('report-print');area.innerHTML=renderReceipt(o);
+ area.classList.add('print-measure');
+ // Fit the print page to actual order lines, not a fixed long sheet.
+ const measured=Math.ceil(area.scrollHeight*25.4/96+7);
+ area.classList.remove('print-measure');
+ const old=document.getElementById('receiptPageSize');if(old)old.remove();
+ const style=document.createElement('style');style.id='receiptPageSize';
+ style.textContent=`@media print{@page{size:80mm ${Math.max(42,Math.min(2500,measured))}mm;margin:0}}`;
+ document.head.appendChild(style);
+ window.print();
+}
+window.addEventListener('afterprint',()=>{const a=document.getElementById('printArea');a.innerHTML='';a.classList.remove('print-measure','report-print');document.getElementById('receiptPageSize')?.remove()});
+function printReport(){const rows=reportRows();let html=`<h2>${esc(st.settings.business)}</h2><h3 class="center">SATIŞ RAPORU</h3><p>${esc(ui.reportFrom)} / ${esc(ui.reportTo)}</p><table><thead><tr><th>Ad</th><th>Adet</th><th class="right">Tutar</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${esc(r.name)}</td><td>${r.qty}</td><td class="right">${fmt(r.total)}</td></tr>`).join('')}</tbody></table><h3 class="right">Toplam: ${fmt(rows.reduce((a,r)=>a+r.total,0))}</h3>`;document.getElementById('printArea').classList.add('report-print');document.getElementById('receiptPageSize')?.remove();document.getElementById('printArea').innerHTML=html;window.print()}
 function removeLine(id){let o=getOrder(),it=o?.items.find(i=>i.id===id);if(!it)return;let next={...o,items:o.items.filter(i=>i.id!==id)};if(orderPaid(o)>orderTotal(next)+.005){toast('Ödenmiş tutarı aşacak şekilde ürün silinemez.','error');return}o.items=next.items;if(!o.items.length&&!orderPaid(o))delete st.orders[ui.tableId];persist();closeModal();toast('Ürün adisyondan kaldırıldı.')}
 function moveTable(targetId){let src=getOrder(),dst=st.orders[targetId];if(!src?.items?.length){toast('Taşınacak sipariş bulunamadı.','error');return}if(src.tableId===targetId)return;let srcDisc=discountValue(src);if(dst?.items.length){const combinedDiscount=srcDisc+discountValue(dst);dst.items.push(...src.items.map(i=>({...i,id:uid('l')})));dst.payments.push(...src.payments);dst.discountType='amount';dst.discount=combinedDiscount;dst.status='Hazırlanıyor';dst.note=[dst.note,src.note].filter(Boolean).join(' / ')}else{delete st.orders[targetId];src.tableId=targetId;src.label=getTable(targetId)?.name||'Masa';st.orders[targetId]=src}delete st.orders[ui.tableId];persist();ui.tableId=targetId;ui.modal=null;render();toast(dst?.items.length?'Adisyonlar birleştirildi.':'Adisyon yeni masaya taşındı.')}
 function resetAll(){const txt=document.getElementById('resetText')?.value||'';if(txt!=='SIFIRLA'){toast('Devam etmek için SIFIRLA yazın.','error');return}st=defaultState();persist();ui={...ui,route:'home',zone:'z1',setupStep:0,tableId:null,modal:null,drawer:false};render();toast('Veriler sıfırlandı.')}
@@ -285,7 +581,7 @@ case'tableForm':{let name=v('name'),zoneId='z1';let t=getTable(mod.id);if(t){t.n
 case'zoneForm':{let name=v('name');let z=st.zones.find(z=>z.id===mod.id);if(z)z.name=name;else{z={id:uid('zone'),name};st.zones.push(z);ui.zone=z.id}persist();closeModal();toast('Bölge kaydedildi.');break}
 case'userForm':{let name=v('name');if(st.operators.some(x=>x.toLocaleLowerCase('tr')===name.toLocaleLowerCase('tr'))){toast('Bu personel zaten mevcut.','error');return}st.operators.push(name);persist();closeModal();toast('Personel eklendi.');break}
 case'discountForm':{let value=safeNumeric(v('discount')),type=v('discountType');if(!Number.isFinite(value)||value<0||(type==='percent'&&value>100)){toast('Geçerli indirim girin.','error');return}let o=getOrder();if(!o){toast('Henüz adisyonda ürün yok.','error');return}let next={...o,discountType:type,discount:value};if(orderTotal(next)+.005<orderPaid(o)){toast('İndirim mevcut tahsilat tutarını aşamaz.','error');return}o.discount=value;o.discountType=type;persist();closeModal();toast('İndirim uygulandı.');break}
-case'payForm':{processPayment(v('amount'),v('method'));break}
+case'payForm':{const amount=Number(v('amount')),method=v('method'),raw=v('received'),received=raw===''?null:Number(raw);if(method==='Nakit'&&received!==null&&(!Number.isFinite(received)||received<amount)){toast('Alınan nakit, tahsil edilecek tutardan az olamaz.','error');return}processPayment(amount,method,received);break}
 case'lineForm':{let o=getOrder(),it=o?.items.find(x=>x.id===mod.id);if(!it)return;let qty=safeNumeric(v('qty'));if(!Number.isInteger(qty)||qty<1||qty>999){toast('Geçerli adet girin.','error');return}let next={...o,items:o.items.map(x=>x.id===it.id?{...x,qty}:x)};if(orderTotal(next)+.005<orderPaid(o)){toast('Ürün değişikliği alınan ödemeden düşük toplam oluşturamaz.','error');return}it.qty=qty;it.note=v('note');it.status=v('status');persist();closeModal();toast('Ürün güncellendi.');break}
 case'moveForm':{const dest=v('target');if(!getTable(dest)){toast('Hedef masa seçin.','error');return}moveTable(dest);break}
 }}
@@ -310,12 +606,15 @@ case'info':openModal('info');break;
 case'line-menu':openModal('line',{id});break;
 case'save':saveOrder();break;
 case'discount':openModal('discount');break;
-case'pay':{let o=getOrder();if(!o?.items?.length){toast('Adisyonda ürün bulunmuyor.','error');return}if(orderDue(o)<=0){toast('Kalan tutar yok.','error');return}openModal('pay');break}
+case'pay':{let o=getOrder();if(!o?.items?.length){toast('Adisyonda ürün bulunmuyor.','error');return}if(orderDue(o)<=0){toast('Kalan tutar yok.','error');return}ui.payMethod='Nakit';ui.payAmount=String(orderDue(o));ui.payKeyFresh=true;navigate('payment');break}
 case'quick-pay':quickPay();break;
 case'quick-confirm':processPayment(orderDue(getOrder()),'Nakit');break;
-case'pay-preset':{let input=document.getElementById('payAmount');if(input)input.value=btn.dataset.value;break}
+case'payment-back':ui.modal=null;ui.route='order';ui.mobileOrderTab='check';render();break;
+case'pay-method':changePaymentMethod(btn.dataset.method);break;
+case'pay-key':applyPayKey(btn.dataset.key);break;
+case'pay-preset':{let input=document.getElementById('payAmount');if(input){input.value=btn.dataset.value;ui.payKeyFresh=true;updatePaymentPreview()}break}
 case'pay-by-items':openModal('payItems');break;
-case'pay-items-confirm':{let o=getOrder(),ids=[...document.querySelectorAll('.pay-item:checked')].map(x=>x.value),sub=orderSub(o),selected=o.items.filter(i=>ids.includes(i.id)).reduce((a,i)=>a+i.price*i.qty,0);let amount=Math.min(orderDue(o),Math.round((sub?selected*orderTotal(o)/sub:0)*100)/100);if(!amount){toast('En az bir ürün seçin.','error');return}openModal('pay',{amount});break}
+case'pay-items-confirm':{let o=getOrder(),ids=[...document.querySelectorAll('.pay-item:checked')].map(x=>x.value),sub=orderSub(o),selected=o.items.filter(i=>ids.includes(i.id)).reduce((a,i)=>a+i.price*i.qty,0);let amount=Math.min(orderDue(o),Math.round((sub?selected*orderTotal(o)/sub:0)*100)/100);if(!amount){toast('En az bir ürün seçin.','error');return}ui.modal=null;ui.payAmount=String(amount);ui.payKeyFresh=true;ui.payMethod=ui.payMethod||'Nakit';ui.route='payment';render();toast('Ürünlerin tutarı ödeme ekranına aktarıldı.');break}
 case'table-actions':openModal('tableActions');break;
 case'move-select':openModal('move');break;
 case'print':printOrder(getOrder());break;
@@ -349,7 +648,7 @@ case'switch-user':st.settings.operator=btn.dataset.name;persist();render();toast
 case'delete-user':{let name=btn.dataset.name;if(st.operators.length===1){toast('Son personel silinemez.','error');return}if(confirm(name+' silinsin mi?')){st.operators=st.operators.filter(x=>x!==name);if(st.settings.operator===name)st.settings.operator=st.operators[0];persist();render()}break}
 case'unsupported':openModal('unsupported');break;
 }}
-function onInput(e){let t=e.target;const id=t.id;if(id==='productSearch'||id==='manageSearch'||id==='reportFilter'){let pos=t.selectionStart??String(t.value).length;if(id==='productSearch')ui.search=t.value;else if(id==='manageSearch')ui.manageSearch=t.value;else ui.reportText=t.value;render();let next=document.getElementById(id);if(next){next.focus();next.setSelectionRange(pos,pos)}}else if(t.classList.contains('pay-item'))updateSelectedSum()}
+function onInput(e){let t=e.target;const id=t.id;if(id==='productSearch'||id==='manageSearch'||id==='reportFilter'){let pos=t.selectionStart??String(t.value).length;if(id==='productSearch')ui.search=t.value;else if(id==='manageSearch')ui.manageSearch=t.value;else ui.reportText=t.value;render();let next=document.getElementById(id);if(next){next.focus();next.setSelectionRange(pos,pos)}}else if(id==='payAmount'){ui.payKeyFresh=false;updatePaymentPreview()}else if(id==='payTender'){updatePaymentPreview()}else if(t.classList.contains('pay-item'))updateSelectedSum()}
 function updateSelectedSum(){const o=getOrder();if(!o)return;let ids=[...document.querySelectorAll('.pay-item:checked')].map(x=>x.value);let sum=o.items.filter(i=>ids.includes(i.id)).reduce((a,i)=>a+i.price*i.qty,0),sub=orderSub(o),amount=sub?sum*orderTotal(o)/sub:0;let el=document.getElementById('payItemsSum');if(el)el.textContent=fmt(Math.min(orderDue(o),amount))}
 function onChange(e){let t=e.target;if(t.id==='dateFrom'){ui.reportFrom=t.value;render()}else if(t.id==='dateTo'){ui.reportTo=t.value;render()}else if(t.id==='manageCat'){ui.manageCat=t.value;render()}else if(t.id==='statusFilter'){ui.statusFilter=t.value;render()}else if(t.classList.contains('pay-item'))updateSelectedSum();else if(t.id==='backupFile')importBackup(t.files?.[0])}
 async function importBackup(file){if(!file)return;try{let s=JSON.parse(await file.text());if(!s||!Array.isArray(s.zones)||!Array.isArray(s.tables)||!Array.isArray(s.products)||!Array.isArray(s.categories)||!Array.isArray(s.history)||!s.orders||!Array.isArray(s.operators)||!s.settings||typeof s.settings.business!=='string')throw Error('Format geçersiz');if(!confirm('Mevcut bütün kayıtlar seçilen yedek ile değiştirilecek. Devam edilsin mi?'))return;st=s;persist();ui.route='home';ui.zone=s.zones[0]?.id||'';ui.tableId=null;ui.modal=null;render();toast('Yedek geri yüklendi.')}catch(err){toast('Yedek açılamadı: '+err.message,'error')}}
