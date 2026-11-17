@@ -505,7 +505,7 @@ function tablesPage(){return page('Masa Tanımlamaları',`<div class="filters"><
 function paymentsPage(){let results=[];for(let o of st.history.concat(Object.values(st.orders)))for(let p of o.payments||[])results.push({...p,order:o});results.sort((a,b)=>new Date(b.date)-new Date(a.date));let total=results.reduce((a,p)=>a+p.amount,0);return page('Tahsilat Hareketleri',`<div class="stat-grid"><div class="stat-card"><div class="caption">Tahsilat işlem sayısı</div><div class="val">${results.length}</div></div><div class="stat-card"><div class="caption">Toplam Tahsilat (tüm zamanlar)</div><div class="val">${fmt(total)}</div></div><div class="stat-card"><div class="caption">Nakit</div><div class="val">${fmt(results.filter(x=>x.method==='Nakit').reduce((a,x)=>a+x.amount,0))}</div></div><div class="stat-card"><div class="caption">Kart / Diğer</div><div class="val">${fmt(results.filter(x=>x.method!=='Nakit').reduce((a,x)=>a+x.amount,0))}</div></div></div><div class="table-wrap"><table class="data-table"><thead><tr><th>Tarih</th><th>Adisyon</th><th>Masa</th><th>Yöntem</th><th>Personel</th><th>Alınan Tutar</th></tr></thead><tbody>${results.length?results.map(p=>`<tr><td>${dateTime(p.date)}</td><td>${esc(p.order.id)}</td><td>${esc(p.order.label)}</td><td>${esc(p.method)}</td><td>${esc(p.operator||'—')}</td><td class="strong">${fmt(p.amount)}</td></tr>`).join(''):`<tr><td colspan="6">${empty('wallet','Tahsilat yok','Ödeme aldığınızda burada listelenecek.')}</td></tr>`}</tbody></table></div>`)}
 function settingsPage(){return page('Ayarlar',`<form id="settingsForm" class="settings-box"><h3>İşletme Bilgileri</h3><div class="form-grid"><div class="field"><label>İşletme adı</label><input name="business" maxlength="70" required value="${esc(st.settings.business)}"></div><div class="field"><label>Aktif kullanıcı</label><select name="operator">${st.operators.map(p=>`<option ${p===st.settings.operator?'selected':''}>${esc(p)}</option>`).join('')}</select></div></div><p class="muted sm">İşletme adı fişte görünür. Bu dosyada kullanıcı oturumu ve çevrimiçi yetkilendirme yoktur.</p><button class="small-btn filled" type="submit">${ic('check')} Kaydet</button></form><div class="settings-box"><h3>Veri Yedekleme</h3><p class="muted">Adisyonlar, kapanmış satışlar, ürünler ve ayarlar yalnızca bu tarayıcının yerel depolamasında tutulur. Düzenli yedek alın.</p><div class="page-actions"><button class="small-btn filled" data-act="backup">${ic('download')} JSON Yedeği İndir</button><button class="small-btn" data-act="import-click">${ic('upload')} Yedek Geri Yükle</button><input id="backupFile" type="file" accept=".json,application/json" hidden></div></div><div class="settings-box"><h3>Diğer</h3><div class="page-actions"><button class="small-btn" data-act="goto" data-route="users">${ic('users')} Personeller</button><button class="small-btn" data-act="goto" data-route="printers">${ic('print')} Yazdırma</button><button class="small-btn danger" data-act="reset-request">${ic('trash')} Tüm verileri sıfırla</button></div></div>`)}
 function usersPage(){return page('Kullanıcılar',`<div class="note">Bu tek dosyalık sürümde personel isimleri kayıt ve raporlama içindir. Şifreli giriş, izin yönetimi ve cihazlar arası eşzamanlama için sunucu gerekir.</div><h3 class="block-title">Tanımlı personeller</h3><div class="table-wrap"><table class="data-table"><thead><tr><th>Personel</th><th>Durum</th><th>İşlemler</th></tr></thead><tbody>${st.operators.map(p=>`<tr><td>${esc(p)}</td><td><span class="badge ${st.settings.operator===p?'green':''}">${st.settings.operator===p?'Aktif':'Personel'}</span></td><td><button data-act="switch-user" data-name="${esc(p)}">Aktif yap</button> <button data-act="delete-user" data-name="${esc(p)}">Sil</button></td></tr>`).join('')}</tbody></table></div>`,`<button class="small-btn filled" data-act="add-user">${ic('plus')} Personel Ekle</button>`)}
-function printersPage(){return page('Yazıcılar',`<div class="settings-box"><h3>Fiş Yazdırma</h3><p>Adisyon ekranındaki ${ic('print')} simgesiyle o adisyonun fişini yazdırabilir, ödenen adisyonun fişini Siparişler menüsünden açabilirsiniz.</p><p class="muted">Yazdırma bilgisayarın veya telefonun tarayıcı yazdır penceresini kullanır. 80 mm termal fiş düzenine uygun hazırlanmıştır; yazıcı sürücüsü veya ağ yazıcısına doğrudan bağlantı içermez.</p><button class="small-btn filled" data-act="print-test">${ic('print')} Test Fişi Yazdır</button></div>`)}
+function printersPage(){return page('Yazıcılar',`<div class="settings-box"><h3>Fiş Yazdırma</h3><p>Adisyon ekranındaki ${ic('print')} simgesiyle o adisyonun fişini yazdırabilir, ödenen adisyonun fişini Siparişler menüsünden açabilirsiniz.</p><p class="muted">Fiş, yalnızca adisyondaki ürün satırları kadar uzayan dar ve dikey 80 mm düzeninde hazırlanır. Yazdır penceresinde kâğıt boyutunu 80 mm Termal/Rulo (veya yazıcınızın 80 mm özel formu), yönü Dikey, ölçeği %100, kenar boşluklarını Yok, üstbilgi ve altbilgileri Kapalı seçin. A4 veya Yatay seçilirse fişin sağında büyük boşluk oluşur. Kâğıdı kesme davranışı yazıcı sürücüsüne bağlıdır; doğrudan ESC/POS bağlantısı bulunmaz.</p><button class="small-btn filled" data-act="print-test">${ic('print')} Test Fişi Yazdır</button></div>`)}
 function digitalPage(){return page('Dijital Menü',`<div class="note">Bu menü, tanımlanan ürünlerin salt okunur görünümüdür. Müşteri bağlantısı veya QR kodu yayımlamak için ayrı bir sunucu gerekir.</div>${st.categories.map(c=>{let products=st.products.filter(p=>p.categoryId===c.id&&p.active);return products.length?`<h3 class="block-title">${esc(c.name)}</h3><div class="table-wrap"><table class="data-table">${products.map(p=>`<tr><td>${esc(p.name)}</td><td style="text-align:right">${fmt(p.price)}</td></tr>`).join('')}</table></div>`:''}).join('')}`)}
 function renderPage(){switch(ui.route){case'home':return home();case'order':return renderOrder();case'payment':return paymentPage();case'reports':return reports();case'orders':return ordersPage();case'products':return productsPage();case'categories':return categoriesPage();case'tables':return tablesPage();case'payments':return paymentsPage();case'settings':return settingsPage();case'users':return usersPage();case'printers':return printersPage();case'digital':return digitalPage();default:return home()}}
 const navGroups=[['Ana Sayfa','home','house'],['Entegrasyon İşlemleri','integrations','grid'],['Dijital Menü','digital','coffee'],['Tanımlamalar','definitions','clipboard'],['Sipariş','orders','orders'],['İşlemler','operations','wallet'],['Kullanıcılar','users','users'],['Raporlar','reports','chart'],['Yazıcılar','printers','print']];
@@ -551,22 +551,71 @@ function renderReceipt(o,test=false){
  ${disc>0?row('Ara toplam',fmt(sum))+row('İndirim','−'+fmt(disc)):''}${row('TOPLAM',fmt(orderTotal(o)),'grand')}${paid>0?row('Ödenen',fmt(paid)):''}${due>0&&paid>0?row('Kalan',fmt(due)):''}
  <div class="r-footer">Teşekkür ederiz.</div><div class="r-owner">Hakan Aytaş CodeBug Şirketi</div>`;
 }
+/* Yazıcı için ayrı belge: uygulamanın sayfa genişliği ve baskı stilleri fişi etkilemez. */
+let activeReceiptFrame=null;
+function printThermalDocument(markup){
+ if(activeReceiptFrame){activeReceiptFrame.remove();activeReceiptFrame=null}
+ const frame=document.createElement('iframe');
+ frame.setAttribute('title','Adio 80 mm Termal Fiş');
+ frame.setAttribute('aria-hidden','true');
+ frame.style.cssText='position:fixed;left:-9999px;top:0;width:80mm;height:25mm;border:0;opacity:0;pointer-events:none';
+ activeReceiptFrame=frame;
+ const receiptCSS=`
+ :root{color-scheme:light}*{box-sizing:border-box}
+ html,body{margin:0!important;padding:0!important;width:80mm!important;min-width:0!important;max-width:80mm!important;height:auto!important;overflow:visible!important;background:#fff!important;color:#000!important;font-family:Arial,Helvetica,sans-serif!important}
+ #ticket{width:72mm!important;margin:0!important;padding:1.5mm 0 1mm 0!important;color:#000!important;font-family:Arial,Helvetica,sans-serif!important;font-size:10px!important;line-height:1.2!important;overflow-wrap:break-word!important}
+ .r-brand{text-align:center;font-size:15px;font-weight:800;line-height:1.2;margin:0 0 1mm;overflow-wrap:anywhere}
+ .r-title{text-align:center;font-size:10px;font-weight:700;letter-spacing:.4px;margin:0 0 2mm}
+ .r-meta{display:grid;grid-template-columns:1fr auto;gap:1mm 3mm;font-size:9.5px;line-height:1.25;margin-bottom:2mm}
+ .r-meta span:nth-child(even){text-align:right}
+ .r-rule{height:0;border:0;border-top:1px dashed #555;margin:1.5mm 0}
+ .r-items{width:100%;border-collapse:collapse;table-layout:fixed;font-size:10px}
+ .r-items th,.r-items td{text-align:left;vertical-align:top;font-size:10px;font-weight:400;padding:.65mm 0;border:0;line-height:1.2;overflow-wrap:anywhere}
+ .r-items th{font-weight:700;border-bottom:1px dashed #888;padding-bottom:1.1mm}
+ .r-items th:nth-child(1),.r-items td:nth-child(1){width:9mm}
+ .r-items th:nth-child(3),.r-items td:nth-child(3){width:20mm;text-align:right;white-space:nowrap}
+ .r-items th:nth-child(2),.r-items td:nth-child(2){padding-right:1.5mm}
+ .r-total-row{display:flex;justify-content:space-between;align-items:baseline;gap:3mm;margin:0;padding:1mm 0;font-size:10px}
+ .r-total-row b{white-space:nowrap}
+ .r-total-row.grand{font-size:14px;font-weight:800;border-top:1px dashed #555;margin-top:1mm;padding-top:1.7mm}
+ .r-footer{text-align:center;font-size:9px;margin:2mm 0 0}
+ .r-owner{text-align:center;font-size:8px;font-weight:700;margin:1mm 0 0}
+ @media print{@page{size:80mm 100mm;margin:0}html,body{width:80mm!important;margin:0!important;padding:0!important}#ticket{margin:0!important}thead{display:table-header-group}tr{break-inside:avoid;page-break-inside:avoid}}
+ `;
+ frame.addEventListener('load',async()=>{
+  try{
+   const win=frame.contentWindow, doc=win.document;
+   if(doc.fonts&&doc.fonts.ready)await doc.fonts.ready;
+   await new Promise(resolve=>win.requestAnimationFrame(()=>win.requestAnimationFrame(resolve)));
+   const content=doc.getElementById('ticket');
+   // scrollHeight ölçüsü, fişteki gerçek ürün satırlarına göre uzar.
+   const mm=Math.ceil(Math.max(content.scrollHeight,content.getBoundingClientRect().height)*25.4/96+4);
+   const pageHeight=Math.max(45,Math.min(3000,mm));
+   const style=doc.createElement('style');
+   style.textContent=`@media print{@page{size:80mm ${pageHeight}mm;margin:0}}`;
+   doc.head.append(style);
+   // Rulo sürücüleri kağıt boyunu desteklemiyorsa sürücüde 80 mm rulo seçilmelidir.
+   win.focus();win.print();
+   const cleanup=()=>{if(activeReceiptFrame===frame){frame.remove();activeReceiptFrame=null}};
+   win.addEventListener('afterprint',()=>setTimeout(cleanup,500),{once:true});
+   setTimeout(cleanup,90000);
+  }catch(e){console.error('Termal yazdırma:',e);toast('Yazdırma açılamadı. Yazıcı ayarlarını kontrol edin.','error');frame.remove();if(activeReceiptFrame===frame)activeReceiptFrame=null}
+ },{once:true});
+ document.body.append(frame);
+ const doc=frame.contentDocument;
+ doc.open();
+ doc.write(`<!doctype html><html lang="tr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Adio - 80 mm Fiş</title><style>${receiptCSS}</style></head><body><div id="ticket">${markup}</div></body></html>`);
+ doc.close();
+}
 function printOrder(o){
  if(!o){toast('Yazdırılacak adisyon yok.','error');return}
- const area=document.getElementById('printArea');
- area.classList.remove('report-print');area.innerHTML=renderReceipt(o);
- area.classList.add('print-measure');
- // Fit the print page to actual order lines, not a fixed long sheet.
- const measured=Math.ceil(area.scrollHeight*25.4/96+7);
- area.classList.remove('print-measure');
- const old=document.getElementById('receiptPageSize');if(old)old.remove();
- const style=document.createElement('style');style.id='receiptPageSize';
- style.textContent=`@media print{@page{size:80mm ${Math.max(42,Math.min(2500,measured))}mm;margin:0}}`;
- document.head.appendChild(style);
- window.print();
+ printThermalDocument(renderReceipt(o));
 }
-window.addEventListener('afterprint',()=>{const a=document.getElementById('printArea');a.innerHTML='';a.classList.remove('print-measure','report-print');document.getElementById('receiptPageSize')?.remove()});
-function printReport(){const rows=reportRows();let html=`<h2>${esc(st.settings.business)}</h2><h3 class="center">SATIŞ RAPORU</h3><p>${esc(ui.reportFrom)} / ${esc(ui.reportTo)}</p><table><thead><tr><th>Ad</th><th>Adet</th><th class="right">Tutar</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${esc(r.name)}</td><td>${r.qty}</td><td class="right">${fmt(r.total)}</td></tr>`).join('')}</tbody></table><h3 class="right">Toplam: ${fmt(rows.reduce((a,r)=>a+r.total,0))}</h3>`;document.getElementById('printArea').classList.add('report-print');document.getElementById('receiptPageSize')?.remove();document.getElementById('printArea').innerHTML=html;window.print()}
+function printReport(){
+ const rows=reportRows();
+ let html=`<div class="r-brand">${esc(st.settings.business)}</div><div class="r-title">SATIŞ RAPORU</div><div class="r-meta"><span>${esc(ui.reportFrom)}</span><span>${esc(ui.reportTo)}</span></div><hr class="r-rule"><table class="r-items"><thead><tr><th>Adet</th><th>Ürün</th><th>Tutar</th></tr></thead><tbody>${rows.map(r=>`<tr><td>${r.qty}</td><td>${esc(r.name)}</td><td>${fmt(r.total)}</td></tr>`).join('')}</tbody></table><hr class="r-rule"><div class="r-total-row grand"><span>TOPLAM</span><b>${fmt(rows.reduce((a,r)=>a+r.total,0))}</b></div><div class="r-owner">Hakan Aytaş CodeBug Şirketi</div>`;
+ printThermalDocument(html);
+}
 function removeLine(id){let o=getOrder(),it=o?.items.find(i=>i.id===id);if(!it)return;let next={...o,items:o.items.filter(i=>i.id!==id)};if(orderPaid(o)>orderTotal(next)+.005){toast('Ödenmiş tutarı aşacak şekilde ürün silinemez.','error');return}o.items=next.items;if(!o.items.length&&!orderPaid(o))delete st.orders[ui.tableId];persist();closeModal();toast('Ürün adisyondan kaldırıldı.')}
 function moveTable(targetId){let src=getOrder(),dst=st.orders[targetId];if(!src?.items?.length){toast('Taşınacak sipariş bulunamadı.','error');return}if(src.tableId===targetId)return;let srcDisc=discountValue(src);if(dst?.items.length){const combinedDiscount=srcDisc+discountValue(dst);dst.items.push(...src.items.map(i=>({...i,id:uid('l')})));dst.payments.push(...src.payments);dst.discountType='amount';dst.discount=combinedDiscount;dst.status='Hazırlanıyor';dst.note=[dst.note,src.note].filter(Boolean).join(' / ')}else{delete st.orders[targetId];src.tableId=targetId;src.label=getTable(targetId)?.name||'Masa';st.orders[targetId]=src}delete st.orders[ui.tableId];persist();ui.tableId=targetId;ui.modal=null;render();toast(dst?.items.length?'Adisyonlar birleştirildi.':'Adisyon yeni masaya taşındı.')}
 function resetAll(){const txt=document.getElementById('resetText')?.value||'';if(txt!=='SIFIRLA'){toast('Devam etmek için SIFIRLA yazın.','error');return}st=defaultState();persist();ui={...ui,route:'home',zone:'z1',setupStep:0,tableId:null,modal:null,drawer:false};render();toast('Veriler sıfırlandı.')}
